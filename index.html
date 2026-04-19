@@ -733,7 +733,7 @@ function submitPhone(){
   if(!phone||phone.replace(/\D/g,'').length<10){inp.style.borderColor='rgba(236,72,153,.6)';setTimeout(()=>inp.style.borderColor='',1500);return}
 
   const TOKEN = '8786313443:AAEmlJz5PX8I0QyoyfbMW912WyTEV4VWcco';
-  const CHAT_ID = '431625337';
+  const CHAT_ID = '821787531';
   const text = `🔔 Новая заявка с сайта!\n\n👤 Имя: ${name}\n📞 Номер: ${phone}\n\n💬 Клиент ждёт звонка`;
 
   fetch(`https://api.telegram.org/bot${TOKEN}/sendMessage`, {
