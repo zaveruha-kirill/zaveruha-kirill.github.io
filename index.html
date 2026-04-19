@@ -616,9 +616,10 @@ section{position:relative;z-index:2;min-height:100vh;display:flex;align-items:ce
     </div>
 
     <div class="step" id="s2">
-      <div class="modal-h">Ваш номер</div>
+      <div class="modal-h">Оставьте заявку</div>
       <div class="modal-sub">Позвоню в ближайшее рабочее время. Никакого спама.</div>
       <div class="ph-wrap">
+        <input type="text" class="ph-in" id="uname" placeholder="Ваше имя">
         <input type="tel" class="ph-in" id="ph" placeholder="+7 (___) ___-__-__">
         <button class="ph-btn" onclick="submitPhone()">Жду звонка →</button>
         <button class="back-btn" onclick="goTo('s1')">← Назад</button>
@@ -724,10 +725,23 @@ function goTo(id){
   if(id==='s2')setTimeout(()=>document.getElementById('ph').focus(),100);
 }
 function submitPhone(){
-  const inp=document.getElementById('ph');
-  const v=inp.value.trim();
-  if(!v||v.replace(/\D/g,'').length<10){inp.classList.add('err');setTimeout(()=>inp.classList.remove('err'),1500);return}
-  console.log('Phone:',v);
+  const inp = document.getElementById('ph');
+  const nameInp = document.getElementById('uname');
+  const phone = inp.value.trim();
+  const name = nameInp.value.trim();
+  if(!name){nameInp.style.borderColor='rgba(236,72,153,.6)';setTimeout(()=>nameInp.style.borderColor='',1500);return}
+  if(!phone||phone.replace(/\D/g,'').length<10){inp.style.borderColor='rgba(236,72,153,.6)';setTimeout(()=>inp.style.borderColor='',1500);return}
+
+  const TOKEN = '8786313443:AAEmlJz5PX8I0QyoyfbMW912WyTEV4VWcco';
+  const CHAT_ID = '431625337';
+  const text = `🔔 Новая заявка с сайта!\n\n👤 Имя: ${name}\n📞 Номер: ${phone}\n\n💬 Клиент ждёт звонка`;
+
+  fetch(`https://api.telegram.org/bot${TOKEN}/sendMessage`, {
+    method: 'POST',
+    headers: {'Content-Type': 'application/json'},
+    body: JSON.stringify({chat_id: CHAT_ID, text: text})
+  }).catch(()=>{});
+
   goTo('s3');
 }
 document.addEventListener('keydown',e=>{if(e.key==='Escape')closeModal()});
