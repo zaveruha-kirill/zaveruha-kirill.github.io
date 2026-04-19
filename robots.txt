@@ -1,0 +1,9 @@
+User-agent: *
+Allow: /
+
+User-agent: Yandex
+Allow: /
+Crawl-delay: 1
+
+Sitemap: https://zaveruha-kirill.github.io/sitemap.xml
+Host: zaveruha-kirill.github.io
