@@ -1,0 +1,123 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Telegram-бот для приёма заявок малому бизнесу</title>
+<meta name="description" content="Как Telegram-бот для приёма заявок снимает рутину с менеджера малого бизнеса: разбор на практике — что он умеет, когда его внедрять и как связать с CRM.">
+<link rel="canonical" href="https://zaveruha-kirill.github.io/blog/avtomatizaciya-biznesa/telegram-bot-dlya-zayavok/">
+<meta name="robots" content="index, follow">
+
+<meta property="og:type" content="article">
+<meta property="og:site_name" content="Кирилл Заверюха — AI-автоматизация">
+<meta property="og:title" content="Telegram-бот для приёма заявок малому бизнесу">
+<meta property="og:description" content="Как Telegram-бот для приёма заявок снимает рутину с менеджера малого бизнеса: разбор на практике — что он умеет, когда его внедрять и как связать с CRM.">
+<meta property="og:url" content="https://zaveruha-kirill.github.io/blog/avtomatizaciya-biznesa/telegram-bot-dlya-zayavok/">
+<meta property="og:locale" content="ru_RU">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="Telegram-бот для приёма заявок малому бизнесу">
+<meta name="twitter:description" content="Как бот снимает рутину с менеджера и когда его стоит внедрять — разбор на практике.">
+
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@500;600;700&family=Inter:wght@400;500;600&family=IBM+Plex+Mono:wght@400;500&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="../../../shared/styles.css">
+
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "BlogPosting",
+  "headline": "Telegram-бот для приёма заявок малому бизнесу",
+  "description": "Как Telegram-бот для приёма заявок снимает рутину с менеджера малого бизнеса: разбор на практике — что он умеет, когда его внедрять и как связать с CRM.",
+  "url": "https://zaveruha-kirill.github.io/blog/avtomatizaciya-biznesa/telegram-bot-dlya-zayavok/",
+  "datePublished": "2026-06-21",
+  "dateModified": "2026-06-21",
+  "inLanguage": "ru",
+  "author": {"@type": "Person", "name": "Кирилл Заверюха"},
+  "publisher": {"@type": "Person", "name": "Кирилл Заверюха"},
+  "breadcrumb": {
+    "@type": "BreadcrumbList",
+    "itemListElement": [
+      {"@type": "ListItem", "position": 1, "name": "Главная", "item": "https://zaveruha-kirill.github.io/"},
+      {"@type": "ListItem", "position": 2, "name": "Блог", "item": "https://zaveruha-kirill.github.io/blog/"},
+      {"@type": "ListItem", "position": 3, "name": "Автоматизация бизнеса", "item": "https://zaveruha-kirill.github.io/blog/avtomatizaciya-biznesa/"},
+      {"@type": "ListItem", "position": 4, "name": "Telegram-бот для заявок", "item": "https://zaveruha-kirill.github.io/blog/avtomatizaciya-biznesa/telegram-bot-dlya-zayavok/"}
+    ]
+  }
+}
+</script>
+</head>
+<body>
+
+<div class="glow"></div>
+<div class="grain"></div>
+
+<header>
+  <div class="wrap">
+    <a href="../../../" class="logo"><span class="logo-dot"></span>Кирилл Заверюха</a>
+    <nav>
+      <a href="../../../#about">Обо мне</a>
+      <a href="../../../#audience">Кому подхожу</a>
+      <a href="../../../#services">Услуги</a>
+      <a href="../../../cases/">Кейсы</a>
+      <a href="../../" class="active">Блог</a>
+      <a href="../../../#contact">Контакты</a>
+    </nav>
+    <a href="../../../#contact" class="nav-cta">Обсудить проект</a>
+  </div>
+</header>
+
+<article class="article-body">
+  <div class="breadcrumb">
+    <a href="../../../">Главная</a><span class="sep">/</span>
+    <a href="../../">Блог</a><span class="sep">/</span>
+    <a href="../">Автоматизация бизнеса</a><span class="sep">/</span>
+    <span>Telegram-бот для заявок</span>
+  </div>
+
+  <h1>Telegram-бот для приёма заявок малому бизнесу</h1>
+  <div class="article-meta">
+    <span class="tag">Автоматизация бизнеса</span>
+    <span>·</span>
+    <span>Кирилл Заверюха</span>
+    <span>·</span>
+    <span>8 минут чтения</span>
+  </div>
+
+  <p>Если заявки от клиентов приходят в личные сообщения, на телефон и в комментарии под постами одновременно — часть из них теряется. Не потому что менеджер плохо работает, а потому что человек физически не может одинаково внимательно следить за тремя каналами сразу.</p>
+
+  <p>Telegram-бот для приёма заявок решает именно эту проблему: собирает обращения в одном месте и приводит их к одному формату, прежде чем они попадут к человеку.</p>
+
+  <h2>Что бот делает на практике</h2>
+  <p>Это не «голосовой помощник» и не замена менеджера. Бот закрывает три конкретные задачи:</p>
+  <ul>
+    <li>Принимает заявку по понятному сценарию — имя, контакт, суть запроса — вместо хаотичного «здравствуйте, а сколько стоит».</li>
+    <li>Сразу кладёт заявку в CRM или присылает в рабочий чат — без ручного переноса.</li>
+    <li>Отвечает на типовые вопросы (цены, график работы, адрес) без участия человека.</li>
+  </ul>
+
+  <div class="article-callout">
+    <strong>Где реальная экономия:</strong> не в «замене сотрудника», а в том, что человек тратит время на сложные заявки, а не на то, чтобы вручную сортировать однотипные сообщения.
+  </div>
+
+  <h2>Когда это имеет смысл внедрять</h2>
+  <p>Если заявок меньше 5–10 в день и их обрабатывает сам собственник — бот, скорее всего, не окупит время на настройку. Эффект становится заметен, когда поток нерегулярный, заявки идут в нескольких каналах одновременно или прямо сейчас часть из них теряется.</p>
+
+  <h2>Как это связано с CRM</h2>
+  <p>Бот сам по себе закрывает только приём заявки. Чтобы не потерять её дальше по воронке — нужна связка с CRM: статус заявки, история переписки, напоминания. Это следующий шаг, который я обычно обсуждаю на этапе аудита процессов. Похожую логику — только уже на уровне всего цикла заказа — я показываю в <a href="../../keysy/crm-dlya-servisnogo-centra/">разборе CRM для сервисного центра</a>.</p>
+
+  <div class="article-cta">
+    <h3>Хотите разобрать свой поток заявок?</h3>
+    <p>15-минутный созвон — без презентаций, просто смотрим, где у вас сейчас теряется время. Примеры того, что уже в работе — на <a href="../../../cases/">странице кейсов</a>.</p>
+    <a href="../../../#contact" class="btn-primary">Обсудить проект</a>
+  </div>
+</article>
+
+<footer>
+  <div class="wrap">
+    <span>© 2026 Кирилл Заверюха — AI-автоматизация</span>
+    <span>Красноярск</span>
+  </div>
+</footer>
+
+</body>
+</html>
