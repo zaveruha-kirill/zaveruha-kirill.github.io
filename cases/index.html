@@ -1,0 +1,158 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Кейсы AI-автоматизации — Кирилл Заверюха | Реальные результаты</title>
+<meta name="description" content="6 реальных кейсов автоматизации: CRM для сервисного центра, Telegram-боты, AI-скрининг резюме, интеграции. Конкретные цифры и результаты.">
+<meta name="keywords" content="кейсы автоматизации, примеры CRM, Telegram бот кейс, AI автоматизация бизнеса примеры">
+<link rel="canonical" href="https://zaveruha-kirill.github.io/cases/">
+<meta property="og:title" content="Кейсы — Кирилл Заверюха">
+<meta property="og:description" content="6 реальных кейсов AI-автоматизации с конкретными цифрами и результатами.">
+<meta property="og:type" content="website">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@200;400;600;700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="../css/main.css">
+<script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js" integrity="sha384-CI3ELBVUz9XQO+97x6nwMDPosPR5XvsxW2ua7N1Xeygeh1IxtgqtCkGfQY9WWdHu" crossorigin="anonymous"></script>
+</head>
+<body data-page="cases" style="overflow:hidden">
+
+<canvas id="scene-canvas"></canvas>
+
+<div id="loader">
+  <div class="loader-counter">0%</div>
+  <div class="loader-label">кейсы</div>
+</div>
+
+<div id="cursor-dot"></div>
+<div id="cursor-ring"></div>
+
+<nav id="nav">
+  <a href="../" class="nav-logo">Заверюха</a>
+  <div class="nav-links">
+    <a href="../work/">Работы</a>
+    <a href="./" style="color:var(--color-bone)">Кейсы</a>
+    <a href="../#services">Услуги</a>
+    <a href="../articles/">Статьи</a>
+  </div>
+  <a href="../#contact" class="nav-cta">Бесплатный аудит →</a>
+</nav>
+
+<div class="cases-page-hero">
+  <div class="work-page-eyebrow" data-re>Реальные кейсы · 6 проектов</div>
+  <h1 class="work-page-heading" data-re>Реальные<br>результаты.</h1>
+  <p class="work-page-sub" data-re>Не теория — конкретные задачи реальных бизнесов и измеримые результаты. Метрики до и после.</p>
+</div>
+
+<div class="cases-list">
+
+  <a class="case-card" href="crm-servisniy-centr/" data-re>
+    <div class="case-card-industry">Сервисный центр · 2025</div>
+    <div class="case-card-title">CRM для сервисного центра</div>
+    <p class="case-card-desc">Клиент вёл заявки в Excel и терял обращения. Построил кастомную CRM: учёт устройств, статусы, PDF-квитанции, склад запчастей, уведомления клиентам.</p>
+    <div class="case-card-result">↓ 40% — время закрытия заявки</div>
+    <div class="case-card-footer">
+      <div class="case-card-stack">
+        <span class="tag">Next.js</span>
+        <span class="tag">PostgreSQL</span>
+        <span class="tag">Docker</span>
+      </div>
+      <span style="font-size:18px;color:var(--color-smoke)">→</span>
+    </div>
+  </a>
+
+  <a class="case-card" href="telegram-bot-restoran/" data-re>
+    <div class="case-card-industry">Ресторан · 2025</div>
+    <div class="case-card-title">Telegram-бот для бронирования</div>
+    <p class="case-card-desc">Администратор тратила 3 часа в день на звонки и записи. Бот взял на себя бронирование столиков, отправку меню и подтверждения — 24/7 без человека.</p>
+    <div class="case-card-result">↑ 30% броней через бот без звонков</div>
+    <div class="case-card-footer">
+      <div class="case-card-stack">
+        <span class="tag">Python</span>
+        <span class="tag">aiogram</span>
+        <span class="tag">Google Calendar</span>
+      </div>
+      <span style="font-size:18px;color:var(--color-smoke)">→</span>
+    </div>
+  </a>
+
+  <a class="case-card" href="ai-screening-hr/" data-re>
+    <div class="case-card-industry">HR-агентство · 2025</div>
+    <div class="case-card-title">AI-скрининг резюме</div>
+    <p class="case-card-desc">Рекрутер вручную просматривал 20 резюме в день. GPT-4o теперь анализирует 200+, выставляет score и присылает топ-5 кандидатов в Telegram каждое утро.</p>
+    <div class="case-card-result">↑ 200+ CV/день против 20 вручную</div>
+    <div class="case-card-footer">
+      <div class="case-card-stack">
+        <span class="tag">Python</span>
+        <span class="tag">OpenAI</span>
+        <span class="tag">Redis</span>
+      </div>
+      <span style="font-size:18px;color:var(--color-smoke)">→</span>
+    </div>
+  </a>
+
+  <a class="case-card" href="amocrm-whatsapp/" data-re>
+    <div class="case-card-industry">Продажи · 2024</div>
+    <div class="case-card-title">AmoCRM + WhatsApp интеграция</div>
+    <p class="case-card-desc">Заявки из WhatsApp терялись или обрабатывались часами. Интеграция автоматически создаёт сделку в AmoCRM и отправляет ответ клиенту в течение 30 секунд.</p>
+    <div class="case-card-result">↑ 0 потерянных лидов, ответ менее 2 минут</div>
+    <div class="case-card-footer">
+      <div class="case-card-stack">
+        <span class="tag">Node.js</span>
+        <span class="tag">AmoCRM API</span>
+        <span class="tag">Webhook</span>
+      </div>
+      <span style="font-size:18px;color:var(--color-smoke)">→</span>
+    </div>
+  </a>
+
+  <a class="case-card" href="parsing-otzyvov/" data-re>
+    <div class="case-card-industry">Сервис · 2024</div>
+    <div class="case-card-title">Мониторинг отзывов 2ГИС и Яндекс.Карт</div>
+    <p class="case-card-desc">Владелец узнавал о негативных отзывах случайно — через неделю. Система собирает отзывы ежедневно, GPT классифицирует тональность, алерт приходит в течение часа.</p>
+    <div class="case-card-result">↓ Реакция на негатив менее 1 часа</div>
+    <div class="case-card-footer">
+      <div class="case-card-stack">
+        <span class="tag">Python</span>
+        <span class="tag">Playwright</span>
+        <span class="tag">Sheets API</span>
+      </div>
+      <span style="font-size:18px;color:var(--color-smoke)">→</span>
+    </div>
+  </a>
+
+  <a class="case-card" href="telegram-vitrina-zapchasti/" data-re>
+    <div class="case-card-industry">Ритейл · 2024</div>
+    <div class="case-card-title">Telegram-витрина автозапчастей</div>
+    <p class="case-card-desc">Клиенты звонили, чтобы уточнить наличие детали. Бот с поиском по артикулу, актуальными ценами из 1С и оформлением заявки без участия менеджера.</p>
+    <div class="case-card-result">↑ 25% заказов через бот без звонков</div>
+    <div class="case-card-footer">
+      <div class="case-card-stack">
+        <span class="tag">Python</span>
+        <span class="tag">1С API</span>
+        <span class="tag">PostgreSQL</span>
+      </div>
+      <span style="font-size:18px;color:var(--color-smoke)">→</span>
+    </div>
+  </a>
+
+</div>
+
+<div class="contact-block" id="contact">
+  <div class="section-label" data-re>следующий кейс — ваш</div>
+  <div class="contact-heading" data-re>Нужен<br>такой же<br>результат?</div>
+  <div class="contact-actions" data-re>
+    <a href="https://t.me/zaveruhakirill" class="btn-contact" target="_blank" rel="noopener">Получить бесплатный аудит →</a>
+    <a class="contact-phone" href="tel:+79994437291">+7 (999) 443-72-91</a>
+  </div>
+</div>
+
+<footer>
+  <span>© 2026 Кирилл Заверюха</span>
+  <span>AI-автоматизация</span>
+</footer>
+
+<script src="../js/scene.js"></script>
+<script src="../js/app.js"></script>
+</body>
+</html>

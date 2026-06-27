@@ -1,0 +1,125 @@
+﻿<!DOCTYPE html>
+<html lang="ru">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Кейс: AI-скрининг резюме — 200+ CV в день вместо 20 | Кирилл Заверюха</title>
+<meta name="description" content="Как GPT-4o помог HR-агентству обрабатывать 200+ резюме в день вместо 20 вручную. Автоматический скрининг с оценкой и дайджестом в Telegram.">
+<meta name="keywords" content="AI скрининг резюме, GPT-4o HR, автоматизация рекрутинга, бот для HR, анализ резюме нейросеть">
+<link rel="canonical" href="https://zaveruha-kirill.github.io/cases/ai-screening-hr/">
+<meta property="og:title" content="Кейс: AI-скрининг 200+ резюме в день — GPT-4o для HR">
+<meta property="og:description" content="GPT-4o оценивает резюме по критериям и присылает топ-5 кандидатов рекрутеру каждое утро.">
+<meta property="og:type" content="article">
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "Article",
+  "headline": "AI-скрининг резюме: GPT-4o обрабатывает 200+ CV в день",
+  "author": { "@type": "Person", "name": "Кирилл Заверюха" },
+  "datePublished": "2025-05-01"
+}
+</script>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@200;400;600;700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="../../css/main.css">
+<script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js" integrity="sha384-CI3ELBVUz9XQO+97x6nwMDPosPR5XvsxW2ua7N1Xeygeh1IxtgqtCkGfQY9WWdHu" crossorigin="anonymous"></script>
+</head>
+<body data-page="case" style="overflow:hidden">
+
+<canvas id="scene-canvas"></canvas>
+
+<div id="loader">
+  <div class="loader-counter">0%</div>
+  <div class="loader-label">кейс</div>
+</div>
+
+<div id="cursor-dot"></div>
+<div id="cursor-ring"></div>
+
+<nav id="nav">
+  <a href="../../" class="nav-logo">Заверюха</a>
+  <div class="nav-links">
+    <a href="../../work/">Работы</a>
+    <a href="../" style="color:var(--color-bone)">Кейсы</a>
+    <a href="../../#services">Услуги</a>
+    <a href="../../articles/">Статьи</a>
+  </div>
+  <a href="../../#contact" class="nav-cta">Бесплатный аудит →</a>
+</nav>
+
+<article class="case-detail">
+
+  <a href="../" class="case-back">← Все кейсы</a>
+
+  <div class="case-detail-eyebrow">HR-агентство · 2025 · AI-интеграция</div>
+  <h1>AI-скрининг<br>резюме</h1>
+  <div class="case-detail-result">↑ 200+ CV/день против 20 вручную</div>
+
+  <div class="case-metrics">
+    <div class="case-metric">
+      <div class="case-metric-value">10×</div>
+      <div class="case-metric-label">рост объёма обработки</div>
+    </div>
+    <div class="case-metric">
+      <div class="case-metric-value">−6ч</div>
+      <div class="case-metric-label">ручного скрининга в день</div>
+    </div>
+    <div class="case-metric">
+      <div class="case-metric-value">8:00</div>
+      <div class="case-metric-label">дайджест топ-5 в Telegram</div>
+    </div>
+  </div>
+
+  <h2>Проблема</h2>
+  <p>HR-агентство работало с несколькими крупными клиентами — производство, IT, торговля. Ежедневно поступало 50–200 резюме на разные вакансии. Рекрутер просматривал их вручную, тратя 5–6 часов в день только на первичный скрининг — даже не на интервью, а на отсев.</p>
+  <p>Из-за объёма часть резюме «подвисала» на несколько дней. Хорошие кандидаты уходили, потому что ответ приходил через неделю. Рекрутер выгорал от монотонной работы.</p>
+
+  <h2>Задача</h2>
+  <p>Автоматически оценивать поступающие резюме по заданным критериям для каждой вакансии, выставлять числовой score и каждое утро присылать рекрутеру дайджест топ-5 кандидатов с кратким обоснованием.</p>
+
+  <h2>Решение</h2>
+  <p>Построил систему на Python + OpenAI API. Резюме поступают на почту или загружаются вручную, парсятся из PDF/Word, анализируются GPT-4o по системному промпту с критериями вакансии.</p>
+  <p><strong>Как работает:</strong></p>
+  <ul>
+    <li>Письмо с резюме → автоматический парсинг текста из PDF/DOCX</li>
+    <li>GPT-4o оценивает резюме по критериям: опыт (лет), стек, образование, гео, зарплатные ожидания</li>
+    <li>Каждому резюме присваивается score от 0 до 100 и краткий комментарий (2–3 предложения)</li>
+    <li>Резюме кешируется в Redis — повторная обработка не тратит токены</li>
+    <li>Ежедневно в 8:00 рекрутер получает в Telegram дайджест: топ-5 кандидатов за прошедшие сутки с score и причиной</li>
+    <li>Рекрутер нажимает «Подробнее» — получает полный текст резюме</li>
+  </ul>
+
+  <h2>Технический стек</h2>
+  <ul>
+    <li>Python 3.11 — основная логика</li>
+    <li>OpenAI API (GPT-4o) — анализ и оценка резюме</li>
+    <li>PyPDF2 + python-docx — парсинг документов</li>
+    <li>Redis — кеш обработанных резюме</li>
+    <li>aiogram — Telegram-бот для дайджеста</li>
+    <li>APScheduler — отправка дайджеста в 8:00</li>
+  </ul>
+
+  <h2>Результат</h2>
+  <p>Рекрутер перестал тратить 6 часов на первичный скрининг. Теперь утром смотрит пятёрку лучших за день и сразу пишет им — без просмотра 200 файлов. Средний балл кандидатов на первом интервью вырос: рекрутер больше не «случайно» пропускает хороших из-за усталости.</p>
+  <p>Агентство подключило систему к двум дополнительным клиентам — она масштабируется добавлением новой вакансии с критериями в конфиг.</p>
+
+</article>
+
+<div class="contact-block" id="contact">
+  <div class="section-label" data-re>хотите ИИ в своих процессах?</div>
+  <div class="contact-heading" data-re>Начнём<br>с аудита.</div>
+  <div class="contact-actions" data-re>
+    <a href="https://t.me/zaveruhakirill" class="btn-contact" target="_blank" rel="noopener">Написать в Telegram →</a>
+    <a class="contact-phone" href="tel:+79994437291">+7 (999) 443-72-91</a>
+  </div>
+</div>
+
+<footer>
+  <span>© 2026 Кирилл Заверюха</span>
+  <span><a href="../" style="color:inherit">Кейсы</a></span>
+</footer>
+
+<script src="../../js/scene.js"></script>
+<script src="../../js/app.js"></script>
+</body>
+</html>

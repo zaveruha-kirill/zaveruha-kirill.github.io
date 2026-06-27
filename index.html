@@ -1,0 +1,523 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>AI-автоматизация для бизнеса — Кирилл Заверюха | Telegram-боты, CRM, ИИ-интеграции</title>
+<meta name="description" content="Разрабатываю Telegram-боты, CRM-системы и ИИ-интеграции под ваши задачи. Бесплатный аудит процессов. Рабочее демо за 48 часов до оплаты.">
+<meta name="keywords" content="AI автоматизация бизнеса, Telegram бот для бизнеса, разработка CRM, ИИ интеграции, автоматизация бизнес-процессов, разработка сайтов, ChatGPT для бизнеса">
+<link rel="canonical" href="https://zaveruha-kirill.github.io/">
+
+<!-- Open Graph -->
+<meta property="og:title" content="Кирилл Заверюха — AI-автоматизация для бизнеса">
+<meta property="og:description" content="Разрабатываю Telegram-боты, CRM-системы и ИИ-интеграции. Бесплатный аудит + демо за 48 часов до оплаты.">
+<meta property="og:type" content="website">
+<meta property="og:url" content="https://zaveruha-kirill.github.io/">
+<meta property="og:site_name" content="Кирилл Заверюха">
+<meta property="og:locale" content="ru_RU">
+
+<!-- Twitter Card -->
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:title" content="Кирилл Заверюха — AI-автоматизация">
+<meta name="twitter:description" content="Telegram-боты, CRM, ИИ-интеграции. Бесплатный аудит + демо за 48 часов.">
+
+<!-- JSON-LD: Person -->
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "Person",
+  "name": "Кирилл Заверюха",
+  "jobTitle": "Специалист по AI-автоматизации и разработке",
+  "url": "https://zaveruha-kirill.github.io",
+  "sameAs": ["https://t.me/zaveruhakirill"],
+  "knowsAbout": [
+    "AI автоматизация бизнеса",
+    "Telegram боты",
+    "CRM системы",
+    "ИИ интеграции",
+    "Разработка сайтов",
+    "Автоматизация бизнес-процессов"
+  ],
+  "contactPoint": {
+    "@type": "ContactPoint",
+    "contactType": "customer service",
+    "url": "https://t.me/zaveruhakirill",
+    "telephone": "+79994437291"
+  },
+  "offers": {
+    "@type": "Offer",
+    "description": "Бесплатный аудит бизнес-процессов",
+    "price": "0",
+    "priceCurrency": "RUB"
+  }
+}
+</script>
+
+<!-- JSON-LD: LocalBusiness -->
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "ProfessionalService",
+  "name": "Кирилл Заверюха — AI-автоматизация",
+  "url": "https://zaveruha-kirill.github.io",
+  "telephone": "+79994437291",
+  "description": "Разработка Telegram-ботов, CRM-систем, ИИ-интеграций и сайтов под задачи бизнеса",
+  "priceRange": "₽₽",
+  "serviceType": ["AI автоматизация", "Telegram бот", "CRM система", "Разработка сайтов"]
+}
+</script>
+
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@200;400;600;700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="css/main.css">
+<script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js" integrity="sha384-CI3ELBVUz9XQO+97x6nwMDPosPR5XvsxW2ua7N1Xeygeh1IxtgqtCkGfQY9WWdHu" crossorigin="anonymous"></script>
+</head>
+<body data-page="home" style="overflow:hidden">
+
+<canvas id="scene-canvas"></canvas>
+
+<!-- LOADER -->
+<div id="loader">
+  <div class="loader-counter">0%</div>
+  <div class="loader-label">инициализация</div>
+</div>
+
+<!-- CURSOR -->
+<div id="cursor-dot"></div>
+<div id="cursor-ring"></div>
+
+<!-- NAV -->
+<nav id="nav">
+  <a href="/" class="nav-logo">Заверюха</a>
+  <div class="nav-links">
+    <a href="work/">Работы</a>
+    <a href="cases/">Кейсы</a>
+    <a href="#services">Услуги</a>
+    <a href="articles/">Статьи</a>
+  </div>
+  <a href="#contact" class="nav-cta">Бесплатный аудит →</a>
+</nav>
+
+<!-- HERO -->
+<section class="hero">
+  <div class="hero-text">
+    <div class="hero-eyebrow">AI-автоматизация</div>
+    <h1>Автоматизирую<br>то, что<br>раздражает.</h1>
+    <p class="hero-body">Разбираю ваши процессы и строю конкретные решения — не шаблонные, а под вашу нишу, вашу команду, ваши задачи.</p>
+    <a href="#contact" class="btn-primary">Получить бесплатный аудит →</a>
+  </div>
+</section>
+
+<!-- TAGLINE -->
+<section class="tagline-section" data-re>
+  <h2 class="tagline-heading">Не агентство.<br>Конкретный человек.<br>Конкретный результат.</h2>
+  <p class="tagline-sub">Работаю напрямую — без посредников и менеджеров. Вы всегда знаете, что происходит и почему. Я отвечаю за результат лично.</p>
+</section>
+
+<!-- STATS -->
+<div class="stats-row">
+  <div class="stat-item" data-re>
+    <div class="stat-num">10+</div>
+    <div class="stat-lbl">реализованных проектов</div>
+  </div>
+  <div class="stat-item" data-re>
+    <div class="stat-num">300+</div>
+    <div class="stat-lbl">часов экономии в месяц</div>
+  </div>
+  <div class="stat-item" data-re>
+    <div class="stat-num">48ч</div>
+    <div class="stat-lbl">до первого демо</div>
+  </div>
+  <div class="stat-item" data-re>
+    <div class="stat-num">0₽</div>
+    <div class="stat-lbl">аудит бесплатно</div>
+  </div>
+</div>
+
+<!-- SERVICES -->
+<section class="section" id="services">
+  <div class="section-label" data-re>что строю</div>
+  <h2 class="section-heading" data-re>Услуги<br>и решения.</h2>
+  <div class="services-grid" data-re>
+    <div class="service-card">
+      <div class="service-num">01</div>
+      <div class="service-title">CRM-системы</div>
+      <p class="service-desc">Кастомные системы учёта заявок, клиентов и сделок под ваш бизнес. Система ролей, PDF-документы, складской учёт. Деплой на VPS одной командой.</p>
+      <div class="service-tags">
+        <span class="tag">Next.js</span>
+        <span class="tag">PostgreSQL</span>
+        <span class="tag">Docker</span>
+      </div>
+    </div>
+    <div class="service-card">
+      <div class="service-num">02</div>
+      <div class="service-title">Telegram-боты</div>
+      <p class="service-desc">Приём заявок, онлайн-запись, витрина товаров, уведомления клиентам и менеджерам. Бот заменяет администратора для базовых операций.</p>
+      <div class="service-tags">
+        <span class="tag">Python</span>
+        <span class="tag">aiogram</span>
+        <span class="tag">Bot API</span>
+      </div>
+    </div>
+    <div class="service-card">
+      <div class="service-num">03</div>
+      <div class="service-title">ИИ-интеграции</div>
+      <p class="service-desc">GPT-4o в ваши процессы: скрининг заявок, генерация документов, классификация данных, умные уведомления. Нейросеть как сотрудник.</p>
+      <div class="service-tags">
+        <span class="tag">OpenAI</span>
+        <span class="tag">GPT-4o</span>
+        <span class="tag">API</span>
+      </div>
+    </div>
+    <div class="service-card">
+      <div class="service-num">04</div>
+      <div class="service-title">Разработка сайтов</div>
+      <p class="service-desc">Лендинги, корпоративные сайты, портфолио. Быстрая загрузка, SEO с нуля, адаптив под мобильные. Запуск за 5–7 дней для простых проектов.</p>
+      <div class="service-tags">
+        <span class="tag">Next.js</span>
+        <span class="tag">Tailwind</span>
+        <span class="tag">SEO</span>
+      </div>
+    </div>
+    <div class="service-card">
+      <div class="service-num">05</div>
+      <div class="service-title">Автоматизация продаж</div>
+      <p class="service-desc">CRM + мессенджеры: входящие заявки автоматически попадают в систему, распределяются по менеджерам и получают первый ответ за секунды.</p>
+      <div class="service-tags">
+        <span class="tag">AmoCRM</span>
+        <span class="tag">WhatsApp</span>
+        <span class="tag">Webhook</span>
+      </div>
+    </div>
+    <div class="service-card">
+      <div class="service-num">06</div>
+      <div class="service-title">Парсинг и аналитика</div>
+      <p class="service-desc">Сбор данных с сайтов, агрегаторов и карт. Мониторинг отзывов, цен, позиций. Выгрузка в Google Sheets, алерты в Telegram при важных событиях.</p>
+      <div class="service-tags">
+        <span class="tag">Python</span>
+        <span class="tag">Playwright</span>
+        <span class="tag">Sheets API</span>
+      </div>
+    </div>
+    <div class="service-card">
+      <div class="service-num">07</div>
+      <div class="service-title">Интеграции сервисов</div>
+      <p class="service-desc">Связываю то, что раньше не было связано: 1С, AmoCRM, Google Workspace, Notion, WhatsApp, Telegram — данные текут сами, без ручного переноса.</p>
+      <div class="service-tags">
+        <span class="tag">API</span>
+        <span class="tag">1С</span>
+        <span class="tag">Google</span>
+      </div>
+    </div>
+    <div class="service-card">
+      <div class="service-num">08</div>
+      <div class="service-title">Документооборот</div>
+      <p class="service-desc">Счета, акты, договоры и квитанции генерируются по шаблону одной командой. PDF формируется и отправляется клиенту автоматически в Telegram или на email.</p>
+      <div class="service-tags">
+        <span class="tag">PDF</span>
+        <span class="tag">Jinja2</span>
+        <span class="tag">Telegram</span>
+      </div>
+    </div>
+    <div class="service-card">
+      <div class="service-num">09</div>
+      <div class="service-title">Мониторинг и алерты</div>
+      <p class="service-desc">Отслеживание статусов, задержек и ключевых событий в реальном времени. Диспетчер получает уведомление без звонков и ручного контроля.</p>
+      <div class="service-tags">
+        <span class="tag">FastAPI</span>
+        <span class="tag">Telegram</span>
+        <span class="tag">PostgreSQL</span>
+      </div>
+    </div>
+    <div class="service-card">
+      <div class="service-num">10</div>
+      <div class="service-title">AI-контент и маркетинг</div>
+      <p class="service-desc">Генерация постов для соцсетей на основе данных из CRM, планирование публикаций, отправка на согласование. Контент-план без маркетолога.</p>
+      <div class="service-tags">
+        <span class="tag">OpenAI</span>
+        <span class="tag">VK API</span>
+        <span class="tag">Scheduling</span>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- PROCESS -->
+<section class="section" id="process">
+  <div class="section-label" data-re>как работаю</div>
+  <h2 class="section-heading" data-re>Пять<br>шагов.</h2>
+  <div class="process-grid" data-re>
+    <div class="process-step">
+      <div class="process-step-num">01</div>
+      <div class="process-step-title">Бесплатный аудит</div>
+      <p class="process-step-desc">30 минут — разбираем что тормозит ваш бизнес. Никаких обязательств, только конкретика.</p>
+    </div>
+    <div class="process-step">
+      <div class="process-step-num">02</div>
+      <div class="process-step-title">Предложение за 24ч</div>
+      <p class="process-step-desc">Что автоматизировать, сколько сэкономит и стоимость — в течение суток после разговора.</p>
+    </div>
+    <div class="process-step">
+      <div class="process-step-num">03</div>
+      <div class="process-step-title">Демо за 48ч</div>
+      <p class="process-step-desc">Рабочий прототип на ваших реальных данных — до оплаты. Не нравится — не платите.</p>
+    </div>
+    <div class="process-step">
+      <div class="process-step-num">04</div>
+      <div class="process-step-title">Внедрение</div>
+      <p class="process-step-desc">Запускаю в ваших процессах и обучаю команду. Без технических специалистов на вашей стороне.</p>
+    </div>
+    <div class="process-step">
+      <div class="process-step-num">05</div>
+      <div class="process-step-title">Поддержка</div>
+      <p class="process-step-desc">Telegram в рабочее время. Дорабатываю и масштабирую по мере роста ваших задач.</p>
+    </div>
+  </div>
+</section>
+
+<!-- CASES PREVIEW -->
+<section class="section" id="cases">
+  <div class="section-label" data-re>реальные кейсы</div>
+  <h2 class="section-heading" data-re>Реальные<br>результаты.</h2>
+  <div class="cases-grid" data-re>
+    <a class="case-preview-card" href="cases/crm-servisniy-centr/">
+      <div class="case-industry">Сервисный центр · CRM</div>
+      <div class="case-title">Как кастомная CRM убрала Excel и сократила время закрытия заявки</div>
+      <div class="case-result">↓ 40% — время закрытия заявки</div>
+      <div class="case-arrow">→</div>
+    </a>
+    <a class="case-preview-card" href="cases/telegram-bot-restoran/">
+      <div class="case-industry">Ресторан · Telegram-бот</div>
+      <div class="case-title">Telegram-бот принял 30% бронирований и разгрузил администратора</div>
+      <div class="case-result">↑ 30% броней через бот без звонков</div>
+      <div class="case-arrow">→</div>
+    </a>
+    <a class="case-preview-card" href="cases/ai-screening-hr/">
+      <div class="case-industry">HR-агентство · AI-скрининг</div>
+      <div class="case-title">GPT-4o обрабатывает 200+ резюме в день вместо рекрутера</div>
+      <div class="case-result">↑ 200+ CV/день против 20 вручную</div>
+      <div class="case-arrow">→</div>
+    </a>
+  </div>
+  <div style="margin-top:36px" data-re>
+    <a href="cases/" class="btn-primary" style="opacity:1;transform:none">Все кейсы →</a>
+  </div>
+</section>
+
+<!-- TESTIMONIALS -->
+<section class="section" id="testimonials">
+  <div class="section-label" data-re>отзывы</div>
+  <h2 class="section-heading" data-re>Что говорят<br>клиенты.</h2>
+  <div class="testimonials-grid" data-re>
+    <div class="testimonial-card">
+      <div class="testimonial-quote">
+        Кирилл сделал за 3 дня то, что мы откладывали полгода. CRM запустили — теперь не представляю как работали без неё.
+      </div>
+      <div class="testimonial-author">
+        <span class="testimonial-name">Антон К.</span> — владелец сервисного центра
+      </div>
+    </div>
+    <div class="testimonial-card">
+      <div class="testimonial-quote">
+        Бот разгрузил администратора на 4 часа в день. Люди бронируют столики ночью — мы ничего не пропускаем. Просто считаем деньги.
+      </div>
+      <div class="testimonial-author">
+        <span class="testimonial-name">Мария Д.</span> — руководитель ресторана
+      </div>
+    </div>
+    <div class="testimonial-card">
+      <div class="testimonial-quote">
+        Наконец CRM, которая работает именно под нас — не пришлось подгонять бизнес под готовое решение. Кирилл слышит задачу.
+      </div>
+      <div class="testimonial-author">
+        <span class="testimonial-name">Дмитрий Р.</span> — директор транспортной компании
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- WORK LIST -->
+<section class="section" id="work">
+  <div class="section-label" data-re>выбранные работы</div>
+  <h2 class="section-heading" data-re>10<br>проектов.</h2>
+  <div class="work-list">
+    <div class="work-row">
+      <span class="work-num">01</span>
+      <span class="work-title">CRM для сервисного центра</span>
+      <div class="work-tags">
+        <span class="work-tag">CRM</span>
+        <span class="work-tag">Next.js</span>
+        <span class="work-tag">PostgreSQL</span>
+      </div>
+      <a href="cases/crm-servisniy-centr/" class="work-arrow">→</a>
+    </div>
+    <div class="work-row">
+      <span class="work-num">02</span>
+      <span class="work-title">Telegram-бот для ресторана</span>
+      <div class="work-tags">
+        <span class="work-tag">Bot</span>
+        <span class="work-tag">Бронирование</span>
+        <span class="work-tag">Python</span>
+      </div>
+      <a href="cases/telegram-bot-restoran/" class="work-arrow">→</a>
+    </div>
+    <div class="work-row">
+      <span class="work-num">03</span>
+      <span class="work-title">AI-скрининг резюме для HR-агентства</span>
+      <div class="work-tags">
+        <span class="work-tag">AI</span>
+        <span class="work-tag">GPT-4o</span>
+        <span class="work-tag">Автоматизация</span>
+      </div>
+      <a href="cases/ai-screening-hr/" class="work-arrow">→</a>
+    </div>
+    <div class="work-row">
+      <span class="work-num">04</span>
+      <span class="work-title">AmoCRM + WhatsApp интеграция</span>
+      <div class="work-tags">
+        <span class="work-tag">CRM</span>
+        <span class="work-tag">API</span>
+        <span class="work-tag">Webhook</span>
+      </div>
+      <a href="cases/amocrm-whatsapp/" class="work-arrow">→</a>
+    </div>
+    <div class="work-row">
+      <span class="work-num">05</span>
+      <span class="work-title">Дашборд отзывов 2ГИС → Google Sheets</span>
+      <div class="work-tags">
+        <span class="work-tag">Парсинг</span>
+        <span class="work-tag">Analytics</span>
+        <span class="work-tag">Python</span>
+      </div>
+      <a href="cases/parsing-otzyvov/" class="work-arrow">→</a>
+    </div>
+    <div class="work-row">
+      <span class="work-num">06</span>
+      <span class="work-title">Telegram-витрина автозапчастей</span>
+      <div class="work-tags">
+        <span class="work-tag">Bot</span>
+        <span class="work-tag">Каталог</span>
+        <span class="work-tag">PostgreSQL</span>
+      </div>
+      <a href="cases/telegram-vitrina-zapchasti/" class="work-arrow">→</a>
+    </div>
+    <div class="work-row">
+      <span class="work-num">07</span>
+      <span class="work-title">Система уведомлений для транспортной компании</span>
+      <div class="work-tags">
+        <span class="work-tag">GPS</span>
+        <span class="work-tag">Telegram</span>
+        <span class="work-tag">FastAPI</span>
+      </div>
+      <a href="work/" class="work-arrow">→</a>
+    </div>
+    <div class="work-row">
+      <span class="work-num">08</span>
+      <span class="work-title">AI-контент для агентства недвижимости</span>
+      <div class="work-tags">
+        <span class="work-tag">GPT</span>
+        <span class="work-tag">Content</span>
+        <span class="work-tag">VK API</span>
+      </div>
+      <a href="work/" class="work-arrow">→</a>
+    </div>
+    <div class="work-row">
+      <span class="work-num">09</span>
+      <span class="work-title">Персональный AI-ассистент</span>
+      <div class="work-tags">
+        <span class="work-tag">Memory</span>
+        <span class="work-tag">Tasks</span>
+        <span class="work-tag">OpenAI</span>
+      </div>
+      <a href="work/" class="work-arrow">→</a>
+    </div>
+    <div class="work-row">
+      <span class="work-num">10</span>
+      <span class="work-title">Автодокументооборот для фрилансера</span>
+      <div class="work-tags">
+        <span class="work-tag">PDF</span>
+        <span class="work-tag">API</span>
+        <span class="work-tag">Telegram</span>
+      </div>
+      <a href="work/" class="work-arrow">→</a>
+    </div>
+  </div>
+  <div style="margin-top:36px" data-re>
+    <a href="work/" class="btn-primary" style="display:inline-flex;opacity:1;transform:none">Смотреть все проекты →</a>
+  </div>
+</section>
+
+<!-- ARTICLES PREVIEW -->
+<section class="section" id="articles">
+  <div class="section-label" data-re>блог</div>
+  <h2 class="section-heading" data-re>Практично<br>об AI.</h2>
+  <div class="articles-grid" data-re>
+    <a class="article-preview-card" href="articles/avtomatizaciya-zayavok/">
+      <div class="article-date">Июнь 2025 · 7 мин</div>
+      <div class="article-title">Как автоматизировать приём заявок за 3 дня и перестать терять клиентов</div>
+      <div class="article-read">Читать →</div>
+    </a>
+    <a class="article-preview-card" href="articles/telegram-bot-vs-crm/">
+      <div class="article-date">Май 2025 · 8 мин</div>
+      <div class="article-title">Telegram-бот или CRM: что выбрать малому бизнесу в 2025 году</div>
+      <div class="article-read">Читать →</div>
+    </a>
+    <a class="article-preview-card" href="articles/gpt-v-biznese/">
+      <div class="article-date">Апрель 2025 · 10 мин</div>
+      <div class="article-title">GPT-4o в вашем бизнесе: 5 задач, которые он решает лучше человека</div>
+      <div class="article-read">Читать →</div>
+    </a>
+  </div>
+  <div style="margin-top:36px" data-re>
+    <a href="articles/" class="btn-primary" style="opacity:1;transform:none">Все статьи →</a>
+  </div>
+</section>
+
+<!-- FAQ -->
+<section class="section" id="faq">
+  <div class="section-label" data-re>вопросы</div>
+  <h2 class="section-heading" data-re>Часто<br>спрашивают.</h2>
+  <div class="faq-list" data-re>
+    <div class="faq-item">
+      <div class="faq-question">Сколько стоит?</div>
+      <div class="faq-answer">От 15 000 ₽ за простой Telegram-бот до 150 000+ ₽ за кастомную CRM-систему. Точную стоимость называю после бесплатного аудита — когда понимаю вашу задачу.</div>
+    </div>
+    <div class="faq-item">
+      <div class="faq-question">Как быстро увижу результат?</div>
+      <div class="faq-answer">Рабочее демо на ваших реальных данных — через 48 часов после брифа. Вы видите, как будет работать, до того как платите.</div>
+    </div>
+    <div class="faq-item">
+      <div class="faq-question">Что если результат не понравится?</div>
+      <div class="faq-answer">Демо всегда до оплаты. Не нравится демо — не платите ничего. Никаких авансов "на разработку" — сначала результат, потом деньги.</div>
+    </div>
+    <div class="faq-item">
+      <div class="faq-question">С какими нишами работаете?</div>
+      <div class="faq-answer">С любыми — сервисные центры, рестораны, HR-агентства, транспортные компании, ритейл, фрилансеры, агентства недвижимости. Если есть ручная рутина — её можно автоматизировать.</div>
+    </div>
+    <div class="faq-item">
+      <div class="faq-question">Нужен ли технический специалист на моей стороне?</div>
+      <div class="faq-answer">Нет. Беру на себя всё: разработку, деплой на сервер, настройку и обучение вашей команды. Всё что нужно от вас — 30 минут на созвон и доступы к нужным системам.</div>
+    </div>
+  </div>
+</section>
+
+<!-- CONTACT -->
+<div class="contact-block" id="contact">
+  <div class="section-label" data-re>контакт</div>
+  <div class="contact-heading" data-re>Есть<br>задача?<br>Обсудим.</div>
+  <p style="font-size:15px;color:var(--color-ash);margin-bottom:30px;max-width:420px" data-re>Первый шаг — бесплатный аудит ваших процессов. 30 минут, никаких обязательств. Я покажу, что можно автоматизировать и сколько это сэкономит.</p>
+  <div class="contact-actions" data-re>
+    <a href="https://t.me/zaveruhakirill" class="btn-contact" target="_blank" rel="noopener">Написать в Telegram →</a>
+    <a class="contact-phone" href="tel:+79994437291">+7 (999) 443-72-91</a>
+  </div>
+</div>
+
+<footer>
+  <span>© 2026 Кирилл Заверюха</span>
+  <span>AI-автоматизация</span>
+</footer>
+
+<script src="js/scene.js"></script>
+<script src="js/app.js"></script>
+</body>
+</html>

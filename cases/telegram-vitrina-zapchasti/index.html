@@ -1,0 +1,124 @@
+﻿<!DOCTYPE html>
+<html lang="ru">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Кейс: Telegram-витрина автозапчастей — 25% заказов без звонков | Кирилл Заверюха</title>
+<meta name="description" content="Как Telegram-бот с поиском по артикулу и интеграцией с 1С принял 25% заказов автозапчастей без участия менеджера.">
+<meta name="keywords" content="Telegram бот запчасти, витрина товаров Telegram, бот каталог товаров, интеграция 1С Telegram">
+<link rel="canonical" href="https://zaveruha-kirill.github.io/cases/telegram-vitrina-zapchasti/">
+<meta property="og:title" content="Кейс: Telegram-витрина запчастей — 25% заказов без звонков">
+<meta property="og:description" content="Бот с поиском по артикулу и синхронизацией с 1С взял на себя четверть заказов.">
+<meta property="og:type" content="article">
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "Article",
+  "headline": "Telegram-витрина автозапчастей: 25% заказов без звонков менеджеру",
+  "author": { "@type": "Person", "name": "Кирилл Заверюха" },
+  "datePublished": "2024-12-10"
+}
+</script>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@200;400;600;700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="../../css/main.css">
+<script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js" integrity="sha384-CI3ELBVUz9XQO+97x6nwMDPosPR5XvsxW2ua7N1Xeygeh1IxtgqtCkGfQY9WWdHu" crossorigin="anonymous"></script>
+</head>
+<body data-page="case" style="overflow:hidden">
+
+<canvas id="scene-canvas"></canvas>
+
+<div id="loader">
+  <div class="loader-counter">0%</div>
+  <div class="loader-label">кейс</div>
+</div>
+
+<div id="cursor-dot"></div>
+<div id="cursor-ring"></div>
+
+<nav id="nav">
+  <a href="../../" class="nav-logo">Заверюха</a>
+  <div class="nav-links">
+    <a href="../../work/">Работы</a>
+    <a href="../" style="color:var(--color-bone)">Кейсы</a>
+    <a href="../../#services">Услуги</a>
+    <a href="../../articles/">Статьи</a>
+  </div>
+  <a href="../../#contact" class="nav-cta">Бесплатный аудит →</a>
+</nav>
+
+<article class="case-detail">
+
+  <a href="../" class="case-back">← Все кейсы</a>
+
+  <div class="case-detail-eyebrow">Ритейл · 2024 · Telegram-бот</div>
+  <h1>Telegram-<br>витрина<br>запчастей</h1>
+  <div class="case-detail-result">↑ 25% заказов через бот без звонков</div>
+
+  <div class="case-metrics">
+    <div class="case-metric">
+      <div class="case-metric-value">25%</div>
+      <div class="case-metric-label">заказов без участия менеджера</div>
+    </div>
+    <div class="case-metric">
+      <div class="case-metric-value">1ч</div>
+      <div class="case-metric-label">синхронизация остатков из 1С</div>
+    </div>
+    <div class="case-metric">
+      <div class="case-metric-value">−2ч</div>
+      <div class="case-metric-label">нагрузки на менеджера в день</div>
+    </div>
+  </div>
+
+  <h2>Проблема</h2>
+  <p>Магазин автозапчастей работал как многие: клиент звонил или писал в WhatsApp, спрашивал «есть ли деталь», менеджер шёл смотреть в 1С, перезванивал. На один такой цикл уходило 10–15 минут. Менеджер тратил до 2 часов в день только на ответы «есть / нет в наличии».</p>
+  <p>Часть клиентов писала поздно вечером — ответа ждали до следующего утра и за это время успевали заказать у конкурентов онлайн.</p>
+
+  <h2>Задача</h2>
+  <p>Дать клиентам возможность самостоятельно проверить наличие детали по артикулу или названию, увидеть актуальную цену из 1С и оформить заявку прямо в Telegram — без звонка и без ожидания.</p>
+
+  <h2>Решение</h2>
+  <p>Разработал Telegram-бота на Python + aiogram с подключением к базе 1С через HTTP-API (1С публикует данные как REST-сервис). Остатки синхронизируются раз в час — клиент всегда видит актуальное наличие.</p>
+  <p><strong>Функции бота:</strong></p>
+  <ul>
+    <li>Поиск по артикулу — точное совпадение, показывает наименование, наличие и цену</li>
+    <li>Поиск по названию — нечёткий поиск, выводит до 5 похожих позиций</li>
+    <li>Просмотр категорий товаров с фильтрацией по марке автомобиля</li>
+    <li>Оформление заявки: клиент указывает количество, контакт, удобное время — менеджер получает уведомление</li>
+    <li>Статус заявки: клиент может проверить через бота на каком этапе его заказ</li>
+    <li>Синхронизация с 1С каждый час: остатки и цены всегда актуальны</li>
+  </ul>
+
+  <h2>Технический стек</h2>
+  <ul>
+    <li>Python 3.11 + aiogram 3 — бот</li>
+    <li>1С 8.3 REST API — данные об остатках и ценах в реальном времени</li>
+    <li>PostgreSQL — история заявок, профили пользователей</li>
+    <li>APScheduler — синхронизация с 1С раз в час</li>
+    <li>VPS + Docker — деплой</li>
+  </ul>
+
+  <h2>Результат</h2>
+  <p>За первый месяц 25% всех заказов оформлялись через бота без звонка менеджеру. Появились ночные заказы — клиенты, которые раньше откладывали на утро, теперь оформляли запрос сразу. Менеджер освободил около 2 часов в день от рутинных консультаций «есть ли деталь».</p>
+  <p>Владелец магазина рассматривает добавление оплаты через бота как следующий шаг.</p>
+
+</article>
+
+<div class="contact-block" id="contact">
+  <div class="section-label" data-re>нужна витрина в Telegram?</div>
+  <div class="contact-heading" data-re>Начнём<br>с аудита.</div>
+  <div class="contact-actions" data-re>
+    <a href="https://t.me/zaveruhakirill" class="btn-contact" target="_blank" rel="noopener">Написать в Telegram →</a>
+    <a class="contact-phone" href="tel:+79994437291">+7 (999) 443-72-91</a>
+  </div>
+</div>
+
+<footer>
+  <span>© 2026 Кирилл Заверюха</span>
+  <span><a href="../" style="color:inherit">Кейсы</a></span>
+</footer>
+
+<script src="../../js/scene.js"></script>
+<script src="../../js/app.js"></script>
+</body>
+</html>

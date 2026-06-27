@@ -1,0 +1,127 @@
+﻿<!DOCTYPE html>
+<html lang="ru">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Кейс: CRM для сервисного центра — снизили время заявки на 40% | Кирилл Заверюха</title>
+<meta name="description" content="Как кастомная CRM-система помогла сервисному центру убрать Excel, устранить потери заявок и сократить время закрытия заявки на 40%.">
+<meta name="keywords" content="CRM для сервисного центра, автоматизация ремонтного сервиса, система учёта заявок, Next.js CRM">
+<link rel="canonical" href="https://zaveruha-kirill.github.io/cases/crm-servisniy-centr/">
+<meta property="og:title" content="Кейс: CRM для сервисного центра — минус 40% к времени заявки">
+<meta property="og:description" content="Как убрали Excel, перестали терять заявки и сократили время закрытия на 40% с кастомной CRM.">
+<meta property="og:type" content="article">
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "Article",
+  "headline": "Кейс: CRM для сервисного центра — снизили время закрытия заявки на 40%",
+  "author": { "@type": "Person", "name": "Кирилл Заверюха" },
+  "datePublished": "2025-03-15",
+  "description": "Как кастомная CRM-система помогла сервисному центру убрать Excel и сократить время закрытия заявки на 40%."
+}
+</script>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@200;400;600;700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="../../css/main.css">
+<script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js" integrity="sha384-CI3ELBVUz9XQO+97x6nwMDPosPR5XvsxW2ua7N1Xeygeh1IxtgqtCkGfQY9WWdHu" crossorigin="anonymous"></script>
+</head>
+<body data-page="case" style="overflow:hidden">
+
+<canvas id="scene-canvas"></canvas>
+
+<div id="loader">
+  <div class="loader-counter">0%</div>
+  <div class="loader-label">кейс</div>
+</div>
+
+<div id="cursor-dot"></div>
+<div id="cursor-ring"></div>
+
+<nav id="nav">
+  <a href="../../" class="nav-logo">Заверюха</a>
+  <div class="nav-links">
+    <a href="../../work/">Работы</a>
+    <a href="../" style="color:var(--color-bone)">Кейсы</a>
+    <a href="../../#services">Услуги</a>
+    <a href="../../articles/">Статьи</a>
+  </div>
+  <a href="../../#contact" class="nav-cta">Бесплатный аудит →</a>
+</nav>
+
+<article class="case-detail">
+
+  <a href="../" class="case-back">← Все кейсы</a>
+
+  <div class="case-detail-eyebrow">Сервисный центр · 2025 · CRM-система</div>
+  <h1>CRM для<br>сервисного<br>центра</h1>
+  <div class="case-detail-result">↓ 40% — время закрытия заявки</div>
+
+  <div class="case-metrics">
+    <div class="case-metric">
+      <div class="case-metric-value">−40%</div>
+      <div class="case-metric-label">время закрытия заявки</div>
+    </div>
+    <div class="case-metric">
+      <div class="case-metric-value">−70%</div>
+      <div class="case-metric-label">звонков клиентов о статусе</div>
+    </div>
+    <div class="case-metric">
+      <div class="case-metric-value">0</div>
+      <div class="case-metric-label">потерянных заявок</div>
+    </div>
+  </div>
+
+  <h2>Проблема</h2>
+  <p>Антон — владелец сервисного центра по ремонту телефонов и ноутбуков. Все заявки вёл в Excel-таблице: дата приёма, модель, проблема, статус. Казалось бы, работает. Но на деле — хаос.</p>
+  <p>Клиенты звонили по 3–4 раза, чтобы узнать статус. Мастера не всегда обновляли таблицу. Квитанции печатались вручную в Word. О том, что ремонт закончен, клиенту звонили тогда, когда вспоминали. Один из трёх заказов задерживался на 2+ дня только из-за неразберихи в коммуникации.</p>
+
+  <h2>Задача</h2>
+  <p>Построить систему, где мастер видит только свои задачи, менеджер видит все заявки с фильтрами, клиент получает SMS о смене статуса автоматически, а квитанция формируется за 10 секунд нажатием кнопки.</p>
+
+  <h2>Решение</h2>
+  <p>Разработал кастомную CRM на Next.js с PostgreSQL и деплоем через Docker Compose. Антон поднял систему на VPS одной командой — без системного администратора.</p>
+  <p><strong>Ключевые модули:</strong></p>
+  <ul>
+    <li>Приём устройства: форма с клиентом, типом устройства, описанием проблемы и предварительной стоимостью</li>
+    <li>Статусы заявки: НОВАЯ → ДИАГНОСТИКА → ОЖИДАНИЕ ЗАПЧАСТЕЙ → ГОТОВА → ВЫДАНА — каждый переход логируется</li>
+    <li>PDF-квитанция: генерируется автоматически при приёме, отправляется клиенту на email</li>
+    <li>Уведомления: SMS клиенту при смене статуса (интеграция с SMS-провайдером)</li>
+    <li>Складской учёт: расход запчастей на заявку, остатки по позициям</li>
+    <li>Система ролей: ADMIN (всё), MANAGER (заявки без настроек), EMPLOYEE (только свои заявки)</li>
+  </ul>
+
+  <h2>Технический стек</h2>
+  <ul>
+    <li>Next.js 14 + TypeScript — фронтенд и API routes</li>
+    <li>Prisma + PostgreSQL — база данных</li>
+    <li>NextAuth.js — авторизация с ролями</li>
+    <li>React PDF — генерация квитанций на сервере</li>
+    <li>Docker Compose — деплой на VPS</li>
+  </ul>
+
+  <h2>Результат</h2>
+  <p>Через месяц после запуска Антон прислал сообщение: «Кирилл, я не могу поверить, но клиенты перестали звонить с вопросом "как там мой телефон". СМС приходит само — люди просто ждут». Время закрытия средней заявки сократилось с 5 до 3 рабочих дней. Звонков о статусе стало на 70% меньше.
+
+  <p>Сейчас на системе работают 3 мастера и 1 менеджер. Антон думает о продаже лицензии другим сервисным центрам.</p>
+
+</article>
+
+<div class="contact-block" id="contact" style="max-width:none">
+  <div class="section-label" data-re>хотите такой же результат?</div>
+  <div class="contact-heading" data-re>Начнём<br>с аудита.</div>
+  <p style="font-size:15px;color:var(--color-ash);margin-bottom:30px" data-re>30 минут — покажу, что можно автоматизировать в вашем бизнесе и сколько это сэкономит.</p>
+  <div class="contact-actions" data-re>
+    <a href="https://t.me/zaveruhakirill" class="btn-contact" target="_blank" rel="noopener">Написать в Telegram →</a>
+    <a class="contact-phone" href="tel:+79994437291">+7 (999) 443-72-91</a>
+  </div>
+</div>
+
+<footer>
+  <span>© 2026 Кирилл Заверюха</span>
+  <span><a href="../" style="color:inherit">Кейсы</a></span>
+</footer>
+
+<script src="../../js/scene.js"></script>
+<script src="../../js/app.js"></script>
+</body>
+</html>

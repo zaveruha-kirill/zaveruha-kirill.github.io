@@ -1,0 +1,123 @@
+﻿<!DOCTYPE html>
+<html lang="ru">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Кейс: AmoCRM + WhatsApp — 0 потерянных лидов | Кирилл Заверюха</title>
+<meta name="description" content="Как интеграция WhatsApp с AmoCRM остановила потери заявок и сократила время первого ответа до 30 секунд. Кейс с цифрами.">
+<meta name="keywords" content="AmoCRM WhatsApp интеграция, автоматизация продаж, CRM мессенджеры, потери лидов CRM">
+<link rel="canonical" href="https://zaveruha-kirill.github.io/cases/amocrm-whatsapp/">
+<meta property="og:title" content="Кейс: AmoCRM + WhatsApp — 0 потерянных лидов">
+<meta property="og:description" content="Заявки из WhatsApp автоматически попадают в AmoCRM и получают ответ за 30 секунд.">
+<meta property="og:type" content="article">
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "Article",
+  "headline": "AmoCRM + WhatsApp: 0 потерянных лидов, ответ за 30 секунд",
+  "author": { "@type": "Person", "name": "Кирилл Заверюха" },
+  "datePublished": "2024-11-20"
+}
+</script>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@200;400;600;700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="../../css/main.css">
+<script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js" integrity="sha384-CI3ELBVUz9XQO+97x6nwMDPosPR5XvsxW2ua7N1Xeygeh1IxtgqtCkGfQY9WWdHu" crossorigin="anonymous"></script>
+</head>
+<body data-page="case" style="overflow:hidden">
+
+<canvas id="scene-canvas"></canvas>
+
+<div id="loader">
+  <div class="loader-counter">0%</div>
+  <div class="loader-label">кейс</div>
+</div>
+
+<div id="cursor-dot"></div>
+<div id="cursor-ring"></div>
+
+<nav id="nav">
+  <a href="../../" class="nav-logo">Заверюха</a>
+  <div class="nav-links">
+    <a href="../../work/">Работы</a>
+    <a href="../" style="color:var(--color-bone)">Кейсы</a>
+    <a href="../../#services">Услуги</a>
+    <a href="../../articles/">Статьи</a>
+  </div>
+  <a href="../../#contact" class="nav-cta">Бесплатный аудит →</a>
+</nav>
+
+<article class="case-detail">
+
+  <a href="../" class="case-back">← Все кейсы</a>
+
+  <div class="case-detail-eyebrow">Продажи · 2024 · Интеграция</div>
+  <h1>AmoCRM +<br>WhatsApp</h1>
+  <div class="case-detail-result">↑ 0 потерянных лидов · ответ за 30 секунд</div>
+
+  <div class="case-metrics">
+    <div class="case-metric">
+      <div class="case-metric-value">0</div>
+      <div class="case-metric-label">потерянных заявок</div>
+    </div>
+    <div class="case-metric">
+      <div class="case-metric-value">30с</div>
+      <div class="case-metric-label">до первого ответа клиенту</div>
+    </div>
+    <div class="case-metric">
+      <div class="case-metric-value">+35%</div>
+      <div class="case-metric-label">конверсия из заявки в сделку</div>
+    </div>
+  </div>
+
+  <h2>Проблема</h2>
+  <p>Компания по продаже строительных материалов получала большой поток заявок через WhatsApp. Менеджеры отвечали когда успевали — иногда через 2–3 часа. Часть сообщений терялась в чате. AmoCRM существовала, но заявки из WhatsApp туда не попадали — менеджер вёл параллельно и часто забывал.</p>
+  <p>По оценке руководителя отдела продаж, теряли около 15% заявок только из-за медленного ответа — клиенты уходили к конкурентам раньше, чем получали ответ.</p>
+
+  <h2>Задача</h2>
+  <p>Автоматически создавать сделку в AmoCRM при каждом входящем сообщении в WhatsApp, распределять по менеджерам и отправлять клиенту приветственное сообщение в течение 30 секунд — без участия человека.</p>
+
+  <h2>Решение</h2>
+  <p>Разработал интеграционный слой на Node.js с webhook-сервером, который слушает входящие сообщения через WhatsApp Business API и синхронизирует с AmoCRM через её REST API.</p>
+  <p><strong>Схема работы:</strong></p>
+  <ul>
+    <li>Клиент пишет в WhatsApp → webhook получает событие</li>
+    <li>Система проверяет: есть ли открытая сделка от этого номера в AmoCRM</li>
+    <li>Если нет — создаёт новую сделку, контакт и задачу менеджеру</li>
+    <li>Менеджер назначается по алгоритму round-robin с учётом загруженности (кол-во открытых сделок)</li>
+    <li>Клиенту автоматически уходит приветственное сообщение с именем его менеджера и ожидаемым временем ответа</li>
+    <li>Все дальнейшие сообщения из диалога попадают в карточку сделки как комментарии</li>
+  </ul>
+
+  <h2>Технический стек</h2>
+  <ul>
+    <li>Node.js + Express — webhook-сервер</li>
+    <li>WhatsApp Business API (через официального провайдера) — входящие/исходящие сообщения</li>
+    <li>AmoCRM REST API — создание сделок, контактов, задач</li>
+    <li>PostgreSQL — лог событий и маппинг номеров к сделкам</li>
+    <li>VPS + PM2 — деплой</li>
+  </ul>
+
+  <h2>Результат</h2>
+  <p>После запуска интеграции потери заявок прекратились — каждое сообщение фиксируется в CRM. Клиент получает ответ в течение 30 секунд (автоматическое приветствие) вместо ожидания часами. Конверсия из заявки в сделку выросла на 35% за 2 месяца — руководитель связывает это именно со скоростью первого контакта.</p>
+
+</article>
+
+<div class="contact-block" id="contact">
+  <div class="section-label" data-re>нужна интеграция CRM и мессенджеров?</div>
+  <div class="contact-heading" data-re>Начнём<br>с аудита.</div>
+  <div class="contact-actions" data-re>
+    <a href="https://t.me/zaveruhakirill" class="btn-contact" target="_blank" rel="noopener">Написать в Telegram →</a>
+    <a class="contact-phone" href="tel:+79994437291">+7 (999) 443-72-91</a>
+  </div>
+</div>
+
+<footer>
+  <span>© 2026 Кирилл Заверюха</span>
+  <span><a href="../" style="color:inherit">Кейсы</a></span>
+</footer>
+
+<script src="../../js/scene.js"></script>
+<script src="../../js/app.js"></script>
+</body>
+</html>

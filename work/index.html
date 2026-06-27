@@ -1,0 +1,194 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Работы — Кирилл Заверюха</title>
+<meta name="description" content="10 проектов по AI-автоматизации: CRM-системы, Telegram-боты, ИИ-интеграции для бизнеса.">
+<link rel="canonical" href="https://zaveruha-kirill.github.io/work/">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@200;400;600;700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="../css/main.css">
+<script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js" integrity="sha384-CI3ELBVUz9XQO+97x6nwMDPosPR5XvsxW2ua7N1Xeygeh1IxtgqtCkGfQY9WWdHu" crossorigin="anonymous"></script>
+</head>
+<body data-page="work" style="overflow:hidden">
+
+<canvas id="scene-canvas"></canvas>
+
+<div id="loader">
+  <div class="loader-counter">0%</div>
+  <div class="loader-label">инициализация</div>
+</div>
+
+<div id="cursor-dot"></div>
+<div id="cursor-ring"></div>
+
+<nav id="nav">
+  <a href="../" class="nav-logo">Заверюха</a>
+  <div class="nav-links">
+    <a href="./" style="color:var(--color-bone)">Работы</a>
+    <a href="../cases/">Кейсы</a>
+    <a href="../#services">Услуги</a>
+    <a href="../articles/">Статьи</a>
+  </div>
+  <a href="../#contact" class="nav-cta">Бесплатный аудит →</a>
+</nav>
+
+<div class="work-page-hero">
+  <div class="work-page-eyebrow" data-re>Выбранные работы</div>
+  <h1 class="work-page-heading" data-re>10 проектов<br>автоматизации.</h1>
+  <p class="work-page-sub" data-re>CRM-системы, Telegram-боты, ИИ-интеграции. Реальные задачи — реальные результаты.</p>
+</div>
+
+<div class="work-cards" data-re>
+
+  <div class="work-card">
+    <div class="work-card-num">01</div>
+    <div class="work-card-title">CRM для сервисного центра</div>
+    <p class="work-card-desc">Полный цикл приёма устройства: статусы заявок, PDF-квитанции, гарантийные талоны, складской учёт запчастей, система ролей. Деплой через Docker Compose на VPS — клиент поднимает систему одной командой.</p>
+    <div class="work-card-stack">
+      <span class="tag">Next.js</span>
+      <span class="tag">PostgreSQL</span>
+      <span class="tag">Prisma</span>
+      <span class="tag">Docker</span>
+    </div>
+    <div class="work-card-result">↑ Время закрытия заявки сократилось на 40%</div>
+  </div>
+
+  <div class="work-card">
+    <div class="work-card-num">02</div>
+    <div class="work-card-title">Telegram-бот для ресторана</div>
+    <p class="work-card-desc">Онлайн-бронирование столиков с подтверждением по времени, просмотр меню с фото, оповещения менеджеру. Интеграция с Google Calendar для управления занятостью.</p>
+    <div class="work-card-stack">
+      <span class="tag">Python</span>
+      <span class="tag">aiogram</span>
+      <span class="tag">SQLite</span>
+      <span class="tag">Google API</span>
+    </div>
+    <div class="work-card-result">↑ 30% броней перешло в бот, разгрузка администратора</div>
+  </div>
+
+  <div class="work-card">
+    <div class="work-card-num">03</div>
+    <div class="work-card-title">AI-скрининг резюме для HR-агентства</div>
+    <p class="work-card-desc">GPT-4o анализирует входящие CV по заданным критериям, выставляет score и формирует краткую сводку. Ежедневный дайджест с топ-5 кандидатами в Telegram рекрутеру.</p>
+    <div class="work-card-stack">
+      <span class="tag">Python</span>
+      <span class="tag">OpenAI</span>
+      <span class="tag">Telegram Bot</span>
+      <span class="tag">Redis</span>
+    </div>
+    <div class="work-card-result">↑ 200+ CV/день против 20 вручную</div>
+  </div>
+
+  <div class="work-card">
+    <div class="work-card-num">04</div>
+    <div class="work-card-title">AmoCRM + WhatsApp интеграция</div>
+    <p class="work-card-desc">Входящие заявки из WhatsApp автоматически создают сделку в AmoCRM, распределяются между менеджерами по загруженности и отправляют клиенту приветственный скрипт в течение 30 секунд.</p>
+    <div class="work-card-stack">
+      <span class="tag">Node.js</span>
+      <span class="tag">AmoCRM API</span>
+      <span class="tag">WhatsApp API</span>
+      <span class="tag">Webhook</span>
+    </div>
+    <div class="work-card-result">↑ 0 потерянных заявок, ответ &lt; 2 минут</div>
+  </div>
+
+  <div class="work-card">
+    <div class="work-card-num">05</div>
+    <div class="work-card-title">Дашборд отзывов 2ГИС → Google Sheets</div>
+    <p class="work-card-desc">Парсер собирает отзывы с 2ГИС и Яндекс.Карт раз в день, GPT классифицирует тональность, выгружает в Google Sheets. Алерт в Telegram при негативном отзыве — в течение часа.</p>
+    <div class="work-card-stack">
+      <span class="tag">Python</span>
+      <span class="tag">Playwright</span>
+      <span class="tag">OpenAI</span>
+      <span class="tag">Sheets API</span>
+    </div>
+    <div class="work-card-result">↑ Реакция на негатив &lt; 1 часа</div>
+  </div>
+
+  <div class="work-card">
+    <div class="work-card-num">06</div>
+    <div class="work-card-title">Telegram-витрина автозапчастей</div>
+    <p class="work-card-desc">Поиск по артикулу или названию, просмотр наличия и цены, оформление заявки прямо в боте. Остатки синхронизируются из 1С раз в час — менеджер не нужен для базовых вопросов.</p>
+    <div class="work-card-stack">
+      <span class="tag">Python</span>
+      <span class="tag">aiogram</span>
+      <span class="tag">1С API</span>
+      <span class="tag">PostgreSQL</span>
+    </div>
+    <div class="work-card-result">↑ 25% заказов через бот без звонков</div>
+  </div>
+
+  <div class="work-card">
+    <div class="work-card-num">07</div>
+    <div class="work-card-title">Система уведомлений для транспорта</div>
+    <p class="work-card-desc">Водитель отмечает статус рейса Telegram-командой. Диспетчер видит дашборд в реальном времени и получает алерт при задержке больше 30 минут — без звонков и ручного мониторинга.</p>
+    <div class="work-card-stack">
+      <span class="tag">Python</span>
+      <span class="tag">FastAPI</span>
+      <span class="tag">Telegram</span>
+      <span class="tag">PostgreSQL</span>
+    </div>
+    <div class="work-card-result">↑ Диспетчер экономит 2 часа/день</div>
+  </div>
+
+  <div class="work-card">
+    <div class="work-card-num">08</div>
+    <div class="work-card-title">AI-контент для агентства недвижимости</div>
+    <p class="work-card-desc">На основе данных объектов из CRM GPT-4o генерирует посты для VK и Instagram с описанием, преимуществами и призывом. Планирует публикации и отправляет на согласование менеджеру в Telegram.</p>
+    <div class="work-card-stack">
+      <span class="tag">Python</span>
+      <span class="tag">OpenAI</span>
+      <span class="tag">VK API</span>
+      <span class="tag">Telegram</span>
+    </div>
+    <div class="work-card-result">↑ 5 постов/неделю без маркетолога</div>
+  </div>
+
+  <div class="work-card">
+    <div class="work-card-num">09</div>
+    <div class="work-card-title">Персональный AI-ассистент</div>
+    <p class="work-card-desc">Долгосрочная память о задачах, встречах и целях. Утренний бриф с планом дня и вечерний отчёт о выполненном. Интеграция с Google Calendar и Notion для синхронизации данных.</p>
+    <div class="work-card-stack">
+      <span class="tag">Python</span>
+      <span class="tag">OpenAI</span>
+      <span class="tag">Notion API</span>
+      <span class="tag">Google Calendar</span>
+    </div>
+    <div class="work-card-result">↑ 1.5 часа/день на планирование → 0</div>
+  </div>
+
+  <div class="work-card">
+    <div class="work-card-num">10</div>
+    <div class="work-card-title">Автодокументооборот для фрилансера</div>
+    <p class="work-card-desc">Счёт, акт выполненных работ и договор генерируются по шаблону одной командой в Telegram. PDF формируется автоматически и отправляется клиенту без участия человека.</p>
+    <div class="work-card-stack">
+      <span class="tag">Python</span>
+      <span class="tag">ReportLab</span>
+      <span class="tag">Jinja2</span>
+      <span class="tag">Telegram Bot</span>
+    </div>
+    <div class="work-card-result">↑ Закрытие документов за 30 сек вместо 20 мин</div>
+  </div>
+
+</div>
+
+<div class="contact-block" id="contact" style="border-top:1px solid rgba(255,255,255,0.10)">
+  <div class="section-label" data-re>контакт</div>
+  <div class="contact-heading" data-re>Нужен<br>проект?<br>Обсудим.</div>
+  <div class="contact-actions" data-re>
+    <a href="https://t.me/zaveruhakirill" class="btn-contact" target="_blank">Написать в Telegram →</a>
+    <a class="contact-phone" href="tel:+79994437291">+7 (999) 443-72-91</a>
+  </div>
+</div>
+
+<footer>
+  <span>© 2026 Кирилл Заверюха</span>
+  <span>AI-автоматизация</span>
+</footer>
+
+<script src="../js/scene.js"></script>
+<script src="../js/app.js"></script>
+</body>
+</html>

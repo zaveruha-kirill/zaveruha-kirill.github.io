@@ -1,0 +1,110 @@
+﻿<!DOCTYPE html>
+<html lang="ru">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Статьи об AI-автоматизации — Кирилл Заверюха | Практично о ботах, CRM и ИИ</title>
+<meta name="description" content="Практичные статьи об AI-автоматизации бизнеса: Telegram-боты, CRM-системы, GPT в работе, стоимость и ошибки внедрения. Без воды — только конкретика.">
+<meta name="keywords" content="статьи автоматизация бизнеса, блог об ИИ, Telegram бот бизнес статья, GPT для малого бизнеса">
+<link rel="canonical" href="https://zaveruha-kirill.github.io/articles/">
+<meta property="og:title" content="Статьи — Кирилл Заверюха">
+<meta property="og:description" content="Практичные статьи об AI-автоматизации бизнеса. Без воды.">
+<meta property="og:type" content="website">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@200;400;600;700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="../css/main.css">
+<script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js" integrity="sha384-CI3ELBVUz9XQO+97x6nwMDPosPR5XvsxW2ua7N1Xeygeh1IxtgqtCkGfQY9WWdHu" crossorigin="anonymous"></script>
+</head>
+<body data-page="articles" style="overflow:hidden">
+
+<canvas id="scene-canvas"></canvas>
+
+<div id="loader">
+  <div class="loader-counter">0%</div>
+  <div class="loader-label">статьи</div>
+</div>
+
+<div id="cursor-dot"></div>
+<div id="cursor-ring"></div>
+
+<nav id="nav">
+  <a href="../" class="nav-logo">Заверюха</a>
+  <div class="nav-links">
+    <a href="../work/">Работы</a>
+    <a href="../cases/">Кейсы</a>
+    <a href="../#services">Услуги</a>
+    <a href="./" style="color:var(--color-bone)">Статьи</a>
+  </div>
+  <a href="../#contact" class="nav-cta">Бесплатный аудит →</a>
+</nav>
+
+<div class="articles-page-hero">
+  <div class="work-page-eyebrow" data-re>Блог · 6 статей</div>
+  <h1 class="work-page-heading" data-re>Практично<br>об AI.</h1>
+  <p class="work-page-sub" data-re>Без теории и хайпа — только конкретика: когда нужен бот, сколько стоит, почему 80% внедрений проваливаются.</p>
+</div>
+
+<div class="articles-list">
+
+  <a class="article-card" href="avtomatizaciya-zayavok/" data-re>
+    <div class="article-card-meta">Июнь 2025 · 7 мин</div>
+    <div class="article-card-title">Как автоматизировать приём заявок за 3 дня и перестать терять клиентов</div>
+    <p class="article-card-lead">Разбираю конкретную схему: что настроить в первые 3 дня, чтобы ни одна заявка не потерялась и клиент получал ответ в течение минуты.</p>
+    <div class="article-card-link">Читать статью →</div>
+  </a>
+
+  <a class="article-card" href="telegram-bot-vs-crm/" data-re>
+    <div class="article-card-meta">Май 2025 · 8 мин</div>
+    <div class="article-card-title">Telegram-бот или CRM: что выбрать малому бизнесу в 2025 году</div>
+    <p class="article-card-lead">Конкретные критерии выбора: когда достаточно бота за 15 000 ₽, а когда нужна полноценная CRM за 80 000+. С примерами из реальных проектов.</p>
+    <div class="article-card-link">Читать статью →</div>
+  </a>
+
+  <a class="article-card" href="gpt-v-biznese/" data-re>
+    <div class="article-card-meta">Апрель 2025 · 10 мин</div>
+    <div class="article-card-title">GPT-4o в вашем бизнесе: 5 задач, которые он решает лучше человека</div>
+    <p class="article-card-lead">Не «ИИ захватит мир», а конкретные задачи, где GPT экономит часы каждый день: скрининг резюме, классификация обращений, генерация документов.</p>
+    <div class="article-card-link">Читать статью →</div>
+  </a>
+
+  <a class="article-card" href="skolko-stoit-avtomatizaciya/" data-re>
+    <div class="article-card-meta">Март 2025 · 6 мин</div>
+    <div class="article-card-title">Сколько стоит автоматизация: от бота за 15к до CRM за 200к</div>
+    <p class="article-card-lead">Честная разбивка цен с объяснением, что входит в каждый ценовой диапазон. Почему разброс такой большой и как не переплатить.</p>
+    <div class="article-card-link">Читать статью →</div>
+  </a>
+
+  <a class="article-card" href="pochemu-ii-provalivayetsya/" data-re>
+    <div class="article-card-meta">Февраль 2025 · 9 мин</div>
+    <div class="article-card-title">Почему 80% внедрений ИИ проваливаются — и как попасть в 20%</div>
+    <p class="article-card-lead">Разбираю 5 реальных причин провала: от неправильной постановки задачи до сопротивления команды. Что делать по-другому.</p>
+    <div class="article-card-link">Читать статью →</div>
+  </a>
+
+  <a class="article-card" href="kak-vybrat-crm/" data-re>
+    <div class="article-card-meta">Январь 2025 · 7 мин</div>
+    <div class="article-card-title">Как выбрать CRM для малого бизнеса в 2025 году: критерии и сравнение</div>
+    <p class="article-card-lead">AmoCRM, Bitrix24 или кастомная система? Разбираю когда что подходит, скрытые затраты и почему «готовая CRM» часто дороже индивидуальной.</p>
+    <div class="article-card-link">Читать статью →</div>
+  </a>
+
+</div>
+
+<div class="contact-block" id="contact">
+  <div class="section-label" data-re>готовы к следующему шагу?</div>
+  <div class="contact-heading" data-re>Обсудим<br>вашу<br>задачу.</div>
+  <div class="contact-actions" data-re>
+    <a href="https://t.me/zaveruhakirill" class="btn-contact" target="_blank" rel="noopener">Написать в Telegram →</a>
+    <a class="contact-phone" href="tel:+79994437291">+7 (999) 443-72-91</a>
+  </div>
+</div>
+
+<footer>
+  <span>© 2026 Кирилл Заверюха</span>
+  <span>AI-автоматизация</span>
+</footer>
+
+<script src="../js/scene.js"></script>
+<script src="../js/app.js"></script>
+</body>
+</html>

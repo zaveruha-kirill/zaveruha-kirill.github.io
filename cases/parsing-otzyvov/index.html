@@ -1,0 +1,125 @@
+﻿<!DOCTYPE html>
+<html lang="ru">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Кейс: Мониторинг отзывов 2ГИС — реакция менее 1 часа | Кирилл Заверюха</title>
+<meta name="description" content="Как автоматический парсинг отзывов 2ГИС и Яндекс.Карт с AI-классификацией позволил реагировать на негатив в течение часа вместо недели.">
+<meta name="keywords" content="мониторинг отзывов 2ГИС, парсинг отзывов Яндекс Карты, автоматический мониторинг репутации, алерт негативный отзыв">
+<link rel="canonical" href="https://zaveruha-kirill.github.io/cases/parsing-otzyvov/">
+<meta property="og:title" content="Кейс: Мониторинг отзывов — реакция менее 1 часа">
+<meta property="og:description" content="Парсинг 2ГИС и Яндекс.Карт + GPT-классификация тональности + алерт в Telegram при негативе.">
+<meta property="og:type" content="article">
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "Article",
+  "headline": "Мониторинг отзывов 2ГИС: реакция на негатив менее 1 часа",
+  "author": { "@type": "Person", "name": "Кирилл Заверюха" },
+  "datePublished": "2024-10-05"
+}
+</script>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@200;400;600;700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="../../css/main.css">
+<script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js" integrity="sha384-CI3ELBVUz9XQO+97x6nwMDPosPR5XvsxW2ua7N1Xeygeh1IxtgqtCkGfQY9WWdHu" crossorigin="anonymous"></script>
+</head>
+<body data-page="case" style="overflow:hidden">
+
+<canvas id="scene-canvas"></canvas>
+
+<div id="loader">
+  <div class="loader-counter">0%</div>
+  <div class="loader-label">кейс</div>
+</div>
+
+<div id="cursor-dot"></div>
+<div id="cursor-ring"></div>
+
+<nav id="nav">
+  <a href="../../" class="nav-logo">Заверюха</a>
+  <div class="nav-links">
+    <a href="../../work/">Работы</a>
+    <a href="../" style="color:var(--color-bone)">Кейсы</a>
+    <a href="../../#services">Услуги</a>
+    <a href="../../articles/">Статьи</a>
+  </div>
+  <a href="../../#contact" class="nav-cta">Бесплатный аудит →</a>
+</nav>
+
+<article class="case-detail">
+
+  <a href="../" class="case-back">← Все кейсы</a>
+
+  <div class="case-detail-eyebrow">Сервис · 2024 · Парсинг + AI</div>
+  <h1>Мониторинг<br>отзывов<br>2ГИС</h1>
+  <div class="case-detail-result">↓ Реакция на негатив менее 1 часа</div>
+
+  <div class="case-metrics">
+    <div class="case-metric">
+      <div class="case-metric-value">&lt;1ч</div>
+      <div class="case-metric-label">реакция на негативный отзыв</div>
+    </div>
+    <div class="case-metric">
+      <div class="case-metric-value">2</div>
+      <div class="case-metric-label">платформы мониторинга</div>
+    </div>
+    <div class="case-metric">
+      <div class="case-metric-value">авто</div>
+      <div class="case-metric-label">классификация тональности</div>
+    </div>
+  </div>
+
+  <h2>Проблема</h2>
+  <p>Сеть автомоек в нескольких районах города. Владелец Игорь случайно узнал о негативном отзыве на 2ГИС — клиент пожаловался на грязные коврики, а отзыв провисел 10 дней без ответа. За это время потенциальные клиенты читали его и уходили к конкурентам.</p>
+  <p>Игорь не мог мониторить 2ГИС и Яндекс.Карты вручную каждый день по 4 точкам. Нанять отдельного человека для мониторинга репутации — дорого и нецелесообразно.</p>
+
+  <h2>Задача</h2>
+  <p>Автоматически собирать новые отзывы с 2ГИС и Яндекс.Карт, определять тональность с помощью AI и присылать алерт в Telegram при появлении негативного отзыва — в течение часа.</p>
+
+  <h2>Решение</h2>
+  <p>Написал парсер на Python + Playwright, который обходит страницы организаций на 2ГИС и Яндекс.Картах раз в час, извлекает новые отзывы и передаёт в GPT для анализа тональности.</p>
+  <p><strong>Схема работы:</strong></p>
+  <ul>
+    <li>Playwright автоматически открывает страницы 4 точек на 2ГИС и Яндекс.Картах раз в час</li>
+    <li>Новые отзывы (ещё не встречавшиеся) извлекаются и сохраняются в PostgreSQL</li>
+    <li>GPT-4o mini классифицирует тональность: позитивный / нейтральный / негативный</li>
+    <li>При негативном — мгновенный алерт владельцу в Telegram с текстом отзыва и ссылкой</li>
+    <li>Еженедельный дайджест: сводка по каждой точке, средний рейтинг, динамика</li>
+    <li>Выгрузка в Google Sheets для ручного анализа менеджером по маркетингу</li>
+  </ul>
+
+  <h2>Технический стек</h2>
+  <ul>
+    <li>Python + Playwright — парсинг страниц 2ГИС и Яндекс.Карт</li>
+    <li>OpenAI API (GPT-4o mini) — классификация тональности</li>
+    <li>PostgreSQL — хранение отзывов и истории</li>
+    <li>Google Sheets API — еженедельная выгрузка</li>
+    <li>aiogram — Telegram-уведомления</li>
+    <li>APScheduler — запуск каждый час</li>
+  </ul>
+
+  <h2>Результат</h2>
+  <p>За первую неделю система поймала 3 негативных отзыва. Игорь ответил на каждый в течение часа — объяснил ситуацию, предложил компенсацию. Один клиент после ответа исправил оценку с 1 на 4 звезды.</p>
+  <p>«Раньше я узнавал о плохом отзыве когда уже было поздно. Теперь я отвечаю быстрее конкурентов» — Игорь, владелец сети автомоек.</p>
+
+</article>
+
+<div class="contact-block" id="contact">
+  <div class="section-label" data-re>нужен мониторинг репутации?</div>
+  <div class="contact-heading" data-re>Начнём<br>с аудита.</div>
+  <div class="contact-actions" data-re>
+    <a href="https://t.me/zaveruhakirill" class="btn-contact" target="_blank" rel="noopener">Написать в Telegram →</a>
+    <a class="contact-phone" href="tel:+79994437291">+7 (999) 443-72-91</a>
+  </div>
+</div>
+
+<footer>
+  <span>© 2026 Кирилл Заверюха</span>
+  <span><a href="../" style="color:inherit">Кейсы</a></span>
+</footer>
+
+<script src="../../js/scene.js"></script>
+<script src="../../js/app.js"></script>
+</body>
+</html>
