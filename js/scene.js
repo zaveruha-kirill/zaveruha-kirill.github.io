@@ -25,6 +25,21 @@
   const camera = new THREE.PerspectiveCamera(55, 1, 0.1, 2000);
   camera.position.z = 420;
 
+  // ─── Спрайт точки: мягкий круглый glow вместо квадратного пикселя ─────────
+  const pointSprite = (function () {
+    const c = document.createElement('canvas');
+    c.width = c.height = 64;
+    const ctx = c.getContext('2d');
+    const g = ctx.createRadialGradient(32, 32, 0, 32, 32, 32);
+    g.addColorStop(0.0,  'rgba(255,255,255,1)');
+    g.addColorStop(0.25, 'rgba(255,255,255,0.9)');
+    g.addColorStop(0.5,  'rgba(255,255,255,0.4)');
+    g.addColorStop(1.0,  'rgba(255,255,255,0)');
+    ctx.fillStyle = g;
+    ctx.fillRect(0, 0, 64, 64);
+    return new THREE.CanvasTexture(c);
+  })();
+
   function resize() {
     const w = window.innerWidth, h = window.innerHeight;
     renderer.setSize(w, h);
@@ -42,7 +57,7 @@
   const mobile = window.innerWidth < 768;
 
   // ─── Цветовая палитра Dala ────────────────────────────────────────────────
-  const COL_DARK   = new THREE.Color('#3d1e08'); // тёмно-коричневый
+  const COL_DARK   = new THREE.Color('#6b3a12'); // тёмно-коричневый
   const COL_COPPER = new THREE.Color('#c4763a'); // медный
   const COL_AMBER  = new THREE.Color('#e8874a'); // янтарный
   const COL_BRIGHT = new THREE.Color('#f5a96c'); // светлый янтарь (для пиков переливания)
@@ -77,7 +92,7 @@
     const ROWS   = mobile ? 24 : 44;
     const COUNT  = COLS * ROWS;
     const GRID_W = 580, GRID_H = 450;
-    const WAVE_AMP  = 48;
+    const WAVE_AMP  = 62;
     const WAVE_FREQ = 0.015;
     const WAVE_SPD  = 0.00055; // время движется медленно, пульс по x180
     const SPHERE_R  = 215;
@@ -107,16 +122,17 @@
       sphZ[i] = r * Math.cos(phi);
     }
 
-    // ─── Целевые позиции: тор ─────────────────────────────────────────────
+    // ─── Целевые позиции: тор-узел (p=2, q=3) ─────────────────────────────
+    // Эффектнее обычного тора: лента закручена в трилистник
     const torX = new Float32Array(COUNT);
     const torY = new Float32Array(COUNT);
     const torZ = new Float32Array(COUNT);
+    const KNOT_P = 2, KNOT_Q = 3, KNOT_JIT = 14;
     for (let i = 0; i < COUNT; i++) {
       const u = (i / COUNT) * Math.PI * 2;
-      const v = Math.random() * Math.PI * 2;
-      torX[i] = (TOR_R + TOR_r * Math.cos(v)) * Math.cos(u);
-      torY[i] = (TOR_R + TOR_r * Math.cos(v)) * Math.sin(u);
-      torZ[i] = TOR_r * Math.sin(v);
+      torX[i] = (TOR_R + TOR_r * Math.cos(KNOT_Q * u)) * Math.cos(KNOT_P * u) + (Math.random() - 0.5) * KNOT_JIT;
+      torY[i] = (TOR_R + TOR_r * Math.cos(KNOT_Q * u)) * Math.sin(KNOT_P * u) + (Math.random() - 0.5) * KNOT_JIT;
+      torZ[i] = TOR_r * Math.sin(KNOT_Q * u) * 1.6 + (Math.random() - 0.5) * KNOT_JIT;
     }
 
     // ─── Целевые позиции: разлёт (scatter) ────────────────────────────────
@@ -140,15 +156,46 @@
     geo.setAttribute('color',    new THREE.BufferAttribute(colors,    3));
 
     const mat = new THREE.PointsMaterial({
-      size: mobile ? 1.8 : 2.4,
+      size: mobile ? 3.4 : 5.0,
+      map: pointSprite,
       vertexColors: true,
       transparent: true,
-      opacity: 0.9,
+      opacity: 1,
       sizeAttenuation: true,
+      blending: THREE.AdditiveBlending, // точки светятся, пересечения ярче
+      depthWrite: false,
     });
 
     const mesh = new THREE.Points(geo, mat);
-    scene.add(mesh);
+    mesh.frustumCulled = false;
+
+    // ─── Каркас сетки: линии между соседними точками, гаснут при морфинге ──
+    const lineIdx = [];
+    for (let row = 0; row < ROWS; row++) {
+      for (let col = 0; col < COLS; col++) {
+        const i = row * COLS + col;
+        if (col < COLS - 1) lineIdx.push(i, i + 1);
+        if (row < ROWS - 1) lineIdx.push(i, i + COLS);
+      }
+    }
+    const lineGeo = new THREE.BufferGeometry();
+    lineGeo.setAttribute('position', geo.attributes.position); // общий буфер с точками
+    lineGeo.setIndex(lineIdx);
+    const lineMat = new THREE.LineBasicMaterial({
+      color: COL_COPPER,
+      transparent: true,
+      opacity: 0.22,
+      blending: THREE.AdditiveBlending,
+      depthWrite: false,
+    });
+    const lines = new THREE.LineSegments(lineGeo, lineMat);
+    lines.frustumCulled = false;
+
+    // Группа: точки + каркас вращаются вместе
+    const group = new THREE.Group();
+    group.add(mesh);
+    group.add(lines);
+    scene.add(group);
 
     const tmp = new THREE.Color();
 
@@ -174,6 +221,7 @@
     let curSph = 0, curTor = 0, curSca = 0;
 
     let time = 0;
+    let spin = 0; // накопленное авто-вращение
 
     return function animate() {
       time += WAVE_SPD;
@@ -206,12 +254,20 @@
 
       // Наклон сцены по мыши (гасится при морфинге)
       const dominantMorph = Math.max(morphSphere, morphTorus);
-      mesh.rotation.x = cRX * (1 - dominantMorph * 0.8);
-      mesh.rotation.y = cRY * (1 - dominantMorph * 0.8);
 
-      // Авто-вращение сферы и тора
-      if (morphSphere > 0.05) mesh.rotation.y += 0.003 * morphSphere * (1 - morphTorus);
-      if (morphTorus  > 0.05) mesh.rotation.y += 0.002 * morphTorus;
+      // Авто-вращение сферы и тора-узла — накапливается, мышь добавляет наклон
+      spin += 0.003 * morphSphere * (1 - morphTorus) + 0.002 * morphTorus;
+      group.rotation.x = cRX * (1 - dominantMorph * 0.8);
+      group.rotation.y = cRY * (1 - dominantMorph * 0.8) + spin;
+
+      // Каркас виден только в режиме сетки — при морфинге растворяется
+      lineMat.opacity = 0.22 * (1 - morphSphere);
+      lines.visible = lineMat.opacity > 0.004;
+
+      // Лёгкий дрейф камеры — сцена «дышит»
+      camera.position.x = Math.sin(time * 26) * 9;
+      camera.position.y = Math.cos(time * 21) * 7;
+      camera.lookAt(0, 0, 0);
 
       for (let i = 0; i < COUNT; i++) {
         const i3 = i * 3;
@@ -226,7 +282,7 @@
         const dx = bx - mxL, dy = by - myL;
         const distSq = dx * dx + dy * dy;
         const ripple = Math.exp(-distSq * 0.000016)
-                     * 26
+                     * 44
                      * Math.sin(Math.sqrt(distSq) * 0.033 - time * 6)
                      * (1 - morphSphere);
 
@@ -309,8 +365,9 @@
       geo.setAttribute('position', new THREE.BufferAttribute(chain.pos.slice(), 3));
       geo.setAttribute('color',    new THREE.BufferAttribute(chain.col.slice(), 3));
       const mat = new THREE.PointsMaterial({
-        size: mobile ? 3 : 4.5, vertexColors: true,
-        transparent: true, opacity: 0.85, sizeAttenuation: true,
+        size: mobile ? 4.5 : 6.5, map: pointSprite, vertexColors: true,
+        transparent: true, opacity: 0.9, sizeAttenuation: true,
+        blending: THREE.AdditiveBlending, depthWrite: false,
       });
       return new THREE.Points(geo, mat);
     }
@@ -335,6 +392,7 @@
     stepGeo.setAttribute('position', new THREE.BufferAttribute(stepPos, 3));
     group.add(new THREE.LineSegments(stepGeo, new THREE.LineBasicMaterial({
       color: COL_BLUE, transparent: true, opacity: 0.55,
+      blending: THREE.AdditiveBlending, depthWrite: false,
     })));
 
     camera.position.z = 520;
@@ -379,8 +437,9 @@
     nodeGeo.setAttribute('position', new THREE.BufferAttribute(nodePos, 3));
     nodeGeo.setAttribute('color',    new THREE.BufferAttribute(nodeCol, 3));
     const nodeMat = new THREE.PointsMaterial({
-      size: mobile ? 3.5 : 5.5, vertexColors: true,
+      size: mobile ? 5 : 7.5, map: pointSprite, vertexColors: true,
       transparent: true, opacity: opacity, sizeAttenuation: true,
+      blending: THREE.AdditiveBlending, depthWrite: false,
     });
     scene.add(new THREE.Points(nodeGeo, nodeMat));
 
@@ -391,6 +450,7 @@
     lineGeo.setAttribute('position', new THREE.BufferAttribute(linePos, 3));
     const lineMat = new THREE.LineBasicMaterial({
       color: COL_COPPER, transparent: true, opacity: opacity * 0.5,
+      blending: THREE.AdditiveBlending, depthWrite: false,
     });
     scene.add(new THREE.LineSegments(lineGeo, lineMat));
 
@@ -444,8 +504,8 @@
     };
   }
 
-  function initCases() { return initNodeGraph(mobile ? 40 : 80, 120 * 120, 0.70); }
-  function initCase()   { return initNodeGraph(mobile ? 22 : 45, 100 * 100, 0.38); }
+  function initCases() { return initNodeGraph(mobile ? 45 : 90, 130 * 130, 0.8); }
+  function initCase()   { return initNodeGraph(mobile ? 26 : 55, 110 * 110, 0.5); }
 
 
   // ══════════════════════════════════════════════════════════════════════════
@@ -475,8 +535,9 @@
     geo.setAttribute('position', new THREE.BufferAttribute(pos, 3));
     geo.setAttribute('color',    new THREE.BufferAttribute(col, 3));
     const mat = new THREE.PointsMaterial({
-      size: mobile ? 1.6 : 2.2, vertexColors: true,
+      size: mobile ? 3.2 : 4.4, map: pointSprite, vertexColors: true,
       transparent: true, opacity: opacity, sizeAttenuation: true,
+      blending: THREE.AdditiveBlending, depthWrite: false,
     });
     scene.add(new THREE.Points(geo, mat));
 
@@ -510,7 +571,7 @@
     };
   }
 
-  function initArticles() { return initParticleStream(mobile ? 120 : 200, 0.65); }
-  function initArticle()  { return initParticleStream(mobile ? 70  : 120, 0.38); }
+  function initArticles() { return initParticleStream(mobile ? 160 : 320, 0.9); }
+  function initArticle()  { return initParticleStream(mobile ? 90  : 160, 0.55); }
 
 })();

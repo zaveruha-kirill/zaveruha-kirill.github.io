@@ -126,23 +126,28 @@
   }
 
   // ─── IntersectionObserver reveals ─────────────────────────
-  const io = new IntersectionObserver(entries => {
-    entries.forEach(e => {
-      if (!e.isIntersecting) return;
+  // Fallback: без IntersectionObserver показываем весь контент сразу
+  if (!('IntersectionObserver' in window)) {
+    document.querySelectorAll('[data-re], .work-row').forEach(el => el.classList.add('in'));
+  } else {
+    const io = new IntersectionObserver(entries => {
+      entries.forEach(e => {
+        if (!e.isIntersecting) return;
 
-      if (e.target.classList.contains('work-list')) {
-        e.target.querySelectorAll('.work-row').forEach((row, i) => {
-          setTimeout(() => row.classList.add('in'), i * 80);
-        });
-      } else {
-        e.target.classList.add('in');
-      }
-      io.unobserve(e.target);
-    });
-  }, { threshold: 0.08 });
+        if (e.target.classList.contains('work-list')) {
+          e.target.querySelectorAll('.work-row').forEach((row, i) => {
+            setTimeout(() => row.classList.add('in'), i * 80);
+          });
+        } else {
+          e.target.classList.add('in');
+        }
+        io.unobserve(e.target);
+      });
+    }, { threshold: 0.08 });
 
-  document.querySelectorAll('[data-re]').forEach(el => io.observe(el));
-  document.querySelectorAll('.work-list').forEach(el => io.observe(el));
+    document.querySelectorAll('[data-re]').forEach(el => io.observe(el));
+    document.querySelectorAll('.work-list').forEach(el => io.observe(el));
+  }
 
   // ─── Hero entrance ─────────────────────────────────────────
   function triggerHero() {
